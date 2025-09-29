@@ -113,6 +113,95 @@ body {
   color: #888;
 }
 
+/* صفحة الأسئلة */
+.quiz-container {
+  background-color: #ffffff;
+  color: #333;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  max-width: 800px;
+  width: 90%;
+  margin: 40px auto;
+}
+
+#section-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #0077b6;
+  text-align: center;
+}
+
+#timer {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+#question-text {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#answers label {
+  display: block;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f0f9ff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#answers label:hover {
+  background-color: #d0eaff;
+}
+
+/* أزرار التنقل */
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.navigation button {
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigation button:hover {
+  background-color: #005f8f;
+}
+
+/* زر إنهاء الامتحان */
+#end-exam {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  display: none;
+}
+
+#end-exam:hover {
+  background-color: #c0392b;
+}
+
 /* دعم الموبايل */
 @media (max-width: 600px) {
   .card-grid {
@@ -122,5 +211,10 @@ body {
 
   .card {
     width: 90%;
+  }
+
+  .navigation {
+    flex-direction: column;
+    align-items: center;
   }
 }
