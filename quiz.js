@@ -54,9 +54,17 @@ function updateQuestion() {
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
-    answersHTML += `<label><input type="radio" name="answer" value="${i}" ${q.answer === i ? "checked" : ""}> ${opt}</label><br>`;
+    answersHTML += `<label><input type="radio" name="answer" value="${i}" ${q.answer === i ? "checked" : ""}> ${opt}</label>`;
   });
   document.getElementById("answers").innerHTML = answersHTML;
+
+  // زر إنهاء الامتحان في آخر سؤال فقط
+  const endExamBtn = document.getElementById("end-exam");
+  if (currentIndex === questions.length - 1) {
+    endExamBtn.style.display = "block";
+  } else {
+    endExamBtn.style.display = "none";
+  }
 }
 
 function saveAnswer() {
@@ -114,14 +122,20 @@ function chooseQuestion() {
 
 function endSection() {
   saveAnswer();
-  if (mode === "real" && section < 5) {
+  if (mode === "real" && section < totalSections) {
     localStorage.setItem("section", section + 1);
     location.reload();
   } else {
-    window.location.href = "thankyou.html";
+    finishExam();
   }
 }
 
+function finishExam() {
+  saveAnswer();
+  window.location.href = "thankyou.html";
+}
+
+// عداد الوقت
 setInterval(() => {
   if (timeLeft > 0) {
     timeLeft--;
@@ -133,6 +147,7 @@ setInterval(() => {
   }
 }, 1000);
 
+// تحميل أول سؤال أو العودة لسؤال محدد
 const returnTo = localStorage.getItem("returnTo");
 if (returnTo !== null) {
   currentIndex = parseInt(returnTo);
