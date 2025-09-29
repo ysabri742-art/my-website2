@@ -4,48 +4,55 @@ let totalSections = 5;
 let currentIndex = 0;
 let timeLeft = 25 * 60;
 
-let questions = [
-  {
-    text: "ما هو أكبر كوكب في المجموعة الشمسية؟",
-    options: ["المريخ", "الأرض", "المشتري", "زحل"],
-    answer: null,
-    marked: false,
-    correct: 2,
-    explanation: "المشتري هو أكبر كوكب في المجموعة الشمسية من حيث الحجم والكتلة."
-  },
-  {
-    text: "من هو مؤسس شركة مايكروسوفت؟",
-    options: ["إيلون ماسك", "مارك زوكربيرغ", "بيل غيتس", "ستيف جوبز"],
-    answer: null,
-    marked: false,
-    correct: 2,
-    explanation: "بيل غيتس أسس شركة مايكروسوفت مع بول ألين عام 1975."
-  },
-  {
-    text: "كم عدد الأضلاع في الشكل السداسي؟",
-    options: ["4", "5", "6", "8"],
-    answer: null,
-    marked: false,
-    correct: 2,
-    explanation: "الشكل السداسي يحتوي على 6 أضلاع و6 زوايا."
-  },
-  {
-    text: "ما هو العنصر الكيميائي الذي رمزه O؟",
-    options: ["أكسجين", "نيتروجين", "حديد", "ذهب"],
-    answer: null,
-    marked: false,
-    correct: 0,
-    explanation: "الرمز O في الجدول الدوري يمثل عنصر الأكسجين."
-  },
-  {
-    text: "ما هي عاصمة اليابان؟",
-    options: ["سيول", "بانكوك", "طوكيو", "بكين"],
-    answer: null,
-    marked: false,
-    correct: 2,
-    explanation: "طوكيو هي العاصمة الرسمية لليابان."
-  }
-];
+// استرجاع الأسئلة من التخزين المؤقت إذا كانت موجودة
+let savedQuestions = localStorage.getItem("questions");
+if (savedQuestions) {
+  questions = JSON.parse(savedQuestions);
+  localStorage.removeItem("questions");
+} else {
+  questions = [
+    {
+      text: "ما هو أكبر كوكب في المجموعة الشمسية؟",
+      options: ["المريخ", "الأرض", "المشتري", "زحل"],
+      answer: null,
+      marked: false,
+      correct: 2,
+      explanation: "المشتري هو أكبر كوكب في المجموعة الشمسية من حيث الحجم والكتلة."
+    },
+    {
+      text: "من هو مؤسس شركة مايكروسوفت؟",
+      options: ["إيلون ماسك", "مارك زوكربيرغ", "بيل غيتس", "ستيف جوبز"],
+      answer: null,
+      marked: false,
+      correct: 2,
+      explanation: "بيل غيتس أسس شركة مايكروسوفت مع بول ألين عام 1975."
+    },
+    {
+      text: "كم عدد الأضلاع في الشكل السداسي؟",
+      options: ["4", "5", "6", "8"],
+      answer: null,
+      marked: false,
+      correct: 2,
+      explanation: "الشكل السداسي يحتوي على 6 أضلاع و6 زوايا."
+    },
+    {
+      text: "ما هو العنصر الكيميائي الذي رمزه O؟",
+      options: ["أكسجين", "نيتروجين", "حديد", "ذهب"],
+      answer: null,
+      marked: false,
+      correct: 0,
+      explanation: "الرمز O في الجدول الدوري يمثل عنصر الأكسجين."
+    },
+    {
+      text: "ما هي عاصمة اليابان؟",
+      options: ["سيول", "بانكوك", "طوكيو", "بكين"],
+      answer: null,
+      marked: false,
+      correct: 2,
+      explanation: "طوكيو هي العاصمة الرسمية لليابان."
+    }
+  ];
+}
 
 function updateQuestion() {
   const q = questions[currentIndex];
@@ -109,7 +116,9 @@ function reviewSection() {
 }
 
 function goTo(index) {
+  saveAnswer();
   localStorage.setItem("returnTo", index);
+  localStorage.setItem("questions", JSON.stringify(questions));
   location.reload();
 }
 
