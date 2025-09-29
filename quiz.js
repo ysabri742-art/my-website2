@@ -1,7 +1,6 @@
 let mode = localStorage.getItem("mode");
 let section = parseInt(localStorage.getItem("section") || "1");
 let totalSections = 5;
-let questionsPerSection = 24;
 let currentIndex = 0;
 let timeLeft = 25 * 60;
 
@@ -48,22 +47,21 @@ let questions = [
   }
 ];
 
-
 function updateQuestion() {
   const q = questions[currentIndex];
-  document.getElementById("section-title").textContent = `القسم ${section}`;
+  document.getElementById("section-title").textContent = `السؤال ${currentIndex + 1}`;
   document.getElementById("question-text").textContent = q.text;
 
   let answersHTML = "";
-  ["A", "B", "C", "D"].forEach(opt => {
-    answersHTML += `<label><input type="radio" name="answer" value="${opt}" ${q.answer === opt ? "checked" : ""}> ${opt}</label><br>`;
+  q.options.forEach((opt, i) => {
+    answersHTML += `<label><input type="radio" name="answer" value="${i}" ${q.answer === i ? "checked" : ""}> ${opt}</label><br>`;
   });
   document.getElementById("answers").innerHTML = answersHTML;
 }
 
 function saveAnswer() {
   const selected = document.querySelector("input[name='answer']:checked");
-  questions[currentIndex].answer = selected ? selected.value : null;
+  questions[currentIndex].answer = selected ? parseInt(selected.value) : null;
 }
 
 function nextQuestion() {
@@ -91,7 +89,7 @@ function reviewSection() {
   saveAnswer();
   let html = `<h2>مراجعة القسم ${section}</h2><ul>`;
   questions.forEach((q, i) => {
-    let status = q.answer ? "✅ مجاب" : "❌ غير مجاب";
+    let status = q.answer !== null ? "✅ مجاب" : "❌ غير مجاب";
     if (q.marked) status += " ⭐ مرجعي";
     html += `<li>سؤال ${i + 1}: ${status} <button onclick="goTo(${i})">🔁</button></li>`;
   });
@@ -103,7 +101,7 @@ function reviewSection() {
 }
 
 function goTo(index) {
-  currentIndex = index;
+  localStorage.setItem("returnTo", index);
   location.reload();
 }
 
@@ -115,13 +113,12 @@ function chooseQuestion() {
 }
 
 function endSection() {
-  if (mode === "real" && section < totalSections) {
+  saveAnswer();
+  if (mode === "real" && section < 5) {
     localStorage.setItem("section", section + 1);
     location.reload();
   } else {
-    alert("✅ تم إنهاء الاختبار بالكامل");
-    localStorage.clear();
-    window.location.href = "index.html";
+    window.location.href = "thankyou.html";
   }
 }
 
@@ -136,4 +133,9 @@ setInterval(() => {
   }
 }, 1000);
 
+const returnTo = localStorage.getItem("returnTo");
+if (returnTo !== null) {
+  currentIndex = parseInt(returnTo);
+  localStorage.removeItem("returnTo");
+}
 updateQuestion();
