@@ -70,8 +70,8 @@ let allQuestions = [
     { id: 49, text: "ما الكلمة التي لا يمكن حذفها من النص السابق (الشجاعة)", options: ["بشجاعته", "الناس", "بإقدامه", "شجاع"], answer: null, marked: false, correct: 3 },
 
     // القسم 3 (50-74)
-    { id: 50, text: "ما الكلمة التي يمكن حذفها من النص السابق ويستقيم المعنى (الشجاعة)", options: ["بشجاعته", "كم", "غلب", "هزمهم"], answer: null, marked: false, correct: 0 },
-    { id: 51, text: "ما علاقة 'وهزمهم بإقدامه' بما قبلها؟", options: ["سبب", "توضيح", "توكيد", "نتيجة"], answer: null, marked: false, correct: 2, header: "مرادف إقدامه" },
+    { id: 50, text: "ما الكلمة التي يمكن حذفها من النص السابق ويستقيم المعنى (الشجاعة)", options: ["بشجاعته", "كم", "غلب", "هزمهم"], answer: null, marked: false, correct: 0, header: "مرادف إقدامه" },
+    { id: 51, text: "ما علاقة 'وهزمهم بإقدامه' بما قبلها؟", options: ["سبب", "توضيح", "توكيد", "نتيجة"], answer: null, marked: false, correct: 2 },
     { id: 52, text: "الضمير في 'هزمهم' يعود:", options: ["من", "شجاع", "الناس", "الأعداء"], answer: null, marked: false, correct: 2 },
     { id: 53, text: "مرادف 'إقدامه':", options: ["جبنه", "شجاعته", "قوته", "تراجعه"], answer: null, marked: false, correct: 1 },
     { id: 54, text: "من سلبيات الأحذية الخشبية؟", options: ["عدم اتزانها", "الكعب العالي", "قصور تعميمها", "ثقل وزنها"], answer: null, marked: false, correct: 0, header: "استيعاب المقروء - الأحذية", paragraph: "كان المصريون أول شعب متحضر يصنع الأحذية، وقد استخدموا لبادات من الجلود أو ورق البردى و كانوا يشدونها إلى القدم بواسطة رباطين، ولحماية إبهام القدمين كانوا يرفعون مقدمة الصندل إلى الأعلى، لكنه كان يتلف بسرعة ويتمزق، وتقدم الرومان خطوة أخرى وصنعوا نوعًا من الأحذية أسموه 'كالسيوس'، كانت له 8 شقوق على الجانبين ورباط يعقد في المقدمة، وقد صنعوا هذا النوع من الأحذية بأشكال مختلفة كانت تنتعلها الطبقات المختلفة في المجتمع الروماني وصنعت الأحذية الخشبية وكان عيبها أنها ثقيلة الوزن وتسبب التزحلق ما  بسبب الكعب الذي كان فيها، بعدها تطوروا وصنع البريطانيون أحذية من المطاط وجعلوها فردة يمين وأخرى يسار." },
@@ -221,13 +221,11 @@ function updateQuestion() {
   });
   document.getElementById("answers").innerHTML = answersHTML;
 
-  // 7. تحديث نص زر التسليم
+  // 7. تحديث نص زر التسليم/الإنهاء
   if (currentSection < totalSections) {
       submitBtn.textContent = `✅ تسليم القسم ${currentSection} والانتقال للتالي`;
-      submitBtn.onclick = endSection;
   } else {
       submitBtn.textContent = `🏁 إنهاء الامتحان`;
-      submitBtn.onclick = finishExam; // القسم الأخير ينهي الامتحان مباشرة
   }
 }
 
@@ -241,6 +239,9 @@ function nextQuestion() {
   if (currentIndex < questions.length - 1) {
     currentIndex++;
     updateQuestion();
+  } else if (currentIndex === questions.length - 1) {
+    // إذا وصل لآخر سؤال في القسم، ينتقل لشاشة المراجعة
+    reviewSection();
   }
 }
 
@@ -262,18 +263,36 @@ function reviewSection() {
   // حفظ حالة القسم قبل الانتقال للمراجعة
   localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
 
-  // إعادة توجيه إلى صفحة المراجعة (يجب إضافة منطق عرض المراجعة هنا أو في صفحة منفصلة)
-  // سنقوم بتضمين منطق المراجعة البسيط في شاشة المراجعة
   let html = `<h2>مراجعة القسم ${currentSection}</h2><ul>`;
   questions.forEach((q, i) => {
     let status = q.answer !== null ? "✅ مجاب" : "❌ غير مجاب";
     if (q.marked) status += " ⭐ مرجعي";
     html += `<li>سؤال ${i + 1}: ${status} <button onclick="window.location.href='quiz.html?section=${currentSection}&returnTo=${i}'">🔁</button></li>`;
   });
+  
+  // تحديد نص زر الإنهاء بناءً على القسم
+  const endButtonText = (currentSection < totalSections) ? '✅ تسليم القسم والانتقال' : '🏁 إنهاء الاختبار';
+
   html += `</ul>
     <button onclick="window.location.href='quiz.html?section=${currentSection}&returnTo=0'">🔙 العودة لأول سؤال</button>
-    <button onclick="endSection()">✅ إنهاء القسم</button>`;
+    <button onclick="endSection()">${endButtonText}</button>`;
+    
   document.body.innerHTML = html;
+}
+
+function goTo(index) {
+  saveAnswer();
+  // حفظ حالة القسم قبل الانتقال
+  localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
+  // إعادة توجيه مع تحديد السؤال المراد الرجوع إليه
+  window.location.href = `quiz.html?section=${currentSection}&returnTo=${index}`;
+}
+
+function chooseQuestion() {
+  let num = prompt("أدخل رقم السؤال:");
+  if (num && !isNaN(num) && num >= 1 && num <= questions.length) {
+    goTo(parseInt(num) - 1);
+  }
 }
 
 function endSection() {
@@ -285,7 +304,6 @@ function endSection() {
   if (currentSection < totalSections) {
     // الانتقال للقسم التالي
     localStorage.setItem("section", currentSection + 1);
-    // مسح مؤشر العودة
     window.location.href = "quiz.html";
   } else {
     // إنهاء الامتحان بالكامل (القسم الأخير)
@@ -298,7 +316,7 @@ function finishExam() {
   let errors = [];
   let totalCorrectAnswers = 0;
   let totalQuestionsCount = 0;
-  const optionLabels = ["أ", "ب", "ج", "د"]; // لسهولة عرض الخيارات
+  const optionLabels = ["أ", "ب", "ج", "د"];
 
   for (let i = 1; i <= totalSections; i++) {
       const savedSection = localStorage.getItem(`section_questions_${i}`);
@@ -319,7 +337,7 @@ function finishExam() {
                       text: q.text,
                       userAnswer: q.answer !== null ? q.options[q.answer] : "لم تتم الإجابة",
                       correctAnswer: q.options[q.correct],
-                      correctLabel: optionLabels[q.correct]
+                      correctLabel: q.options[q.correct] ? optionLabels[q.correct] : 'غير محدد' 
                   });
               }
           });
@@ -369,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateQuestion();
 
-    // 4. إزالة زر إنهاء الامتحان القديم (لأنه تم استبداله بـ submit-section-btn)
+    // 4. إزالة زر إنهاء الامتحان القديم (end-exam) إذا وجد، لضمان استخدام زر واحد
     const oldEndExamBtn = document.getElementById("end-exam");
     if (oldEndExamBtn) {
         oldEndExamBtn.remove();
@@ -377,6 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. يتم مسح معاملات URL لضمان بداية نظيفة في المرة القادمة
     window.history.replaceState({}, document.title, "quiz.html");
+
 });
 
 
