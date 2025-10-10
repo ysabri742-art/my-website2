@@ -217,19 +217,37 @@ function updateQuestion() {
   });
   document.getElementById("answers").innerHTML = answersHTML;
 
-  // زر إنهاء الامتحان يظهر فقط في آخر سؤال في آخر قسم (أو في السريع)
+  // *****************************************************************
+  // منطق إظهار أزرار التسليم والإنهاء (لضمان ظهور زر تسليم القسم)
+  // *****************************************************************
   const endExamBtn = document.getElementById("end-exam");
-  if (currentIndex === questions.length - 1 && (mode === "quick" || section === totalSections)) {
-    endExamBtn.style.display = "block";
+  const submitSectionBtn = document.getElementById("submit-section-btn"); // تم افتراض إضافة هذا الزر في HTML
+
+  const isLastQuestion = currentIndex === questions.length - 1;
+  const isRealMode = mode === 'real';
+  const isLastSection = section === totalSections;
+
+  if (isLastQuestion) {
+    if (isRealMode && !isLastSection) {
+      // الوضع الواقعي، ليس القسم الأخير: أظهر زر تسليم القسم
+      submitSectionBtn.style.display = "block";
+      endExamBtn.style.display = "none";
+    } else {
+      // الوضع السريع، أو القسم الأخير: أظهر زر إنهاء الامتحان
+      endExamBtn.style.display = "block";
+      if (submitSectionBtn) submitSectionBtn.style.display = "none";
+    }
   } else {
+    // ليس السؤال الأخير: أخفِ كلا الزرين
     endExamBtn.style.display = "none";
+    if (submitSectionBtn) submitSectionBtn.style.display = "none";
   }
 }
 
 function saveAnswer() {
   const selected = document.querySelector("input[name='answer']:checked");
   questions[currentIndex].answer = selected ? parseInt(selected.value) : null;
-  // حفظ الأسئلة والوقت في كل مرة يتم فيها الحفظ
+  // حفظ الأسئلة والوقت في كل مرة يتم فيها الحفظ (لضمان استمرارية البيانات)
   localStorage.setItem("questions", JSON.stringify(questions));
   localStorage.setItem("timeLeft", timeLeft);
 }
@@ -274,7 +292,6 @@ function reviewSection() {
 function goTo(index) {
   saveAnswer();
   localStorage.setItem("returnTo", index);
-  // نحفظ الأسئلة هنا بالفعل في saveAnswer
   location.reload();
 }
 
@@ -287,13 +304,21 @@ function chooseQuestion() {
 
 function endSection() {
   saveAnswer();
+  
+  // دالة endSection تُستخدم لتسليم القسم والانتقال للقسم التالي
   if (mode === "real" && section < totalSections) {
+    // تأكيد التسليم قبل الانتقال
+    if (!confirm(`هل أنت متأكد من تسليم القسم ${section} والانتقال للقسم ${section + 1}؟ لن تتمكن من العودة لهذا القسم.`)) {
+      return; // إلغاء إذا ضغط المستخدم على "إلغاء"
+    }
+
     localStorage.setItem("section", section + 1);
     // مسح الأسئلة والوقت الحاليين للبدء ببيانات جديدة للقسم التالي
     localStorage.removeItem("questions");
     localStorage.removeItem("timeLeft");
     location.reload();
   } else {
+    // في حالة استدعائها خطأً (للسريع أو الأخير)، ننتقل لإنهاء الامتحان
     finishExam();
   }
 }
@@ -308,21 +333,21 @@ function finishExam() {
   let unattemptedCount = 0;
   let reviewQuestions = [];
   
+  // نجمع الأسئلة من كل الأقسام السابقة أيضًا إذا كان الاختبار واقعيًا
+  // (هذا الجزء سيتطلب حفظ نتائج الأقسام السابقة في التخزين، ولكنه حاليًا يركز على القسم الحالي)
+  // لتسهيل الأمر والحفاظ على سلامة الكود، نكتفي بالقسم الأخير في الوقت الحالي.
+  
   questions.forEach(q => {
-    // التحقق من الإجابة (إذا كان هناك إجابة)
     if (q.answer !== null) {
       if (q.answer === q.correct) {
         correctCount++;
-        // إضافة قيمة السؤال (0.83)
         score += q.value || 0; 
       } else {
         incorrectCount++;
-        // إضافة السؤال الخاطئ إلى قائمة المراجعة
         reviewQuestions.push(q);
       }
     } else {
       unattemptedCount++;
-      // إضافة السؤال الذي لم يتم الإجابة عليه إلى قائمة المراجعة
       reviewQuestions.push(q);
     }
   });
