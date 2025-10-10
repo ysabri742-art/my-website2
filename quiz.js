@@ -4,13 +4,13 @@ let totalSections = 5;
 let currentIndex = 0;
 let timeLeft = 25 * 60; 
 
-// تحديد نطاقات الأسئلة لكل قسم لتقسيم الاختبار الواقعي
+// تحديد نطاقات الأسئلة لكل قسم لتقسيم الاختبار الواقعي (1-25، 26-50، إلخ)
 const sectionRanges = [
-    { start: 0, end: 24, name: "المفردة الشاذة والتناظر اللفظي" },      // 25 سؤال
-    { start: 25, end: 49, name: "إكمال الجمل والخطأ السياقي" },          // 25 سؤال
-    { start: 50, end: 87, name: "استيعاب المقروء" },                      // 38 سؤال
-    { start: 88, end: 109, name: "الجبر والحساب والمسائل المقالية" },    // 22 سؤال
-    { start: 110, end: 133, name: "الهندسة وأسئلة المقارنة" }            // 24 سؤال (المجموع الكلي 134، لكن تم استخدام 120 سؤالًا في النهاية)
+    { start: 0, end: 24, name: "القسم الأول: المفردة الشاذة والتناظر اللفظي" },
+    { start: 25, end: 49, name: "القسم الثاني: إكمال الجمل والخطأ السياقي" },
+    { start: 50, end: 87, name: "القسم الثالث: استيعاب المقروء" },
+    { start: 88, end: 110, name: "القسم الرابع: الجبر والحساب والمسائل المقالية" },
+    { start: 111, end: 133, name: "القسم الخامس: الهندسة وأسئلة المقارنة" }
 ]; 
 
 // استرجاع الأسئلة من التخزين المؤقت إذا كانت موجودة
@@ -19,9 +19,9 @@ if (savedQuestions) {
   questions = JSON.parse(savedQuestions);
   localStorage.removeItem("questions");
 } else {
-  // مصفوفة الأسئلة الجديدة (120 سؤالاً تقريباً مع العناوين والتقسيم)
+  // مصفوفة الأسئلة الجديدة (بشكل أفقي مُدمج)
   questions = [
-    // القسم 1: المفردة الشاذة (1-7)
+    // المفردة الشاذة (1-7)
     { id: 1, text: "أوجد المفردة الشاذة:", options: ["ثمار", "حبوب", "حصاد", "فواكه"], answer: null, marked: false, correct: 2, explanation: "حصاد هو عملية، بينما البقية هي نواتج زراعية.", header: "المفردة الشاذة" },
     { id: 2, text: "أوجد المفردة الشاذة:", options: ["شمس", "قمر", "نور", "الإضاءة"], answer: null, marked: false, correct: 3, explanation: "الإضاءة هي فعل، بينما البقية مصادر طبيعية." },
     { id: 3, text: "أوجد المفردة الشاذة:", options: ["مسك", "نعناع", "فل", "ياسمين"], answer: null, marked: false, correct: 0, explanation: "المسك حيواني الأصل، بينما البقية نباتات عطرية." },
@@ -30,7 +30,7 @@ if (savedQuestions) {
     { id: 6, text: "أوجد المفردة الشاذة:", options: ["كسور", "كدمات", "جروح", "كمادات"], answer: null, marked: false, correct: 3, explanation: "الكمادات هي أداة علاج، بينما البقية إصابات." },
     { id: 7, text: "أوجد المفردة الشاذة:", options: ["أفقي", "عمودي", "رأسي", "مائل"], answer: null, marked: false, correct: 3, explanation: "مائل مختلف عن الزوايا الأساسية." },
 
-    // القسم 1: التناظر اللفظي (8-13)
+    // التناظر اللفظي (8-13)
     { id: 8, text: "سوريا : دمشق (دولة : عاصمة)", options: ["فلسطين : غزة", "مصر : الإسكندرية", "المغرب : الرباط", "لبنان : طرابلس"], answer: null, marked: false, correct: 2, explanation: "المغرب : الرباط هي علاقة دولة وعاصمتها.", header: "التناظر اللفظي" },
     { id: 9, text: "مغزل : مقص (أدوات عمل)", options: ["جزار : منجرة", "معلم : مسطرة", "دراجة : عجلة", "منشار : مسمار"], answer: null, marked: false, correct: 3, explanation: "المغزل والمقص أدوات نسيج، والمنشار والمسمار أدوات بناء/نجارة." },
     { id: 10, text: "ورد : عطر (مصدر : ناتج)", options: ["زهرة : لون", "إنفاق : إسراف", "رمل : زجاج", "خزان : ماء"], answer: null, marked: false, correct: 2, explanation: "الورد يُستخرج منه العطر، والرمل يُصنع منه الزجاج." },
@@ -38,7 +38,7 @@ if (savedQuestions) {
     { id: 12, text: "ريح : إعصار (درجة قصوى)", options: ["فل : ياسمين", "ليل : نهار", "نجاح : عمل", "حرب : ضروس"], answer: null, marked: false, correct: 3, explanation: "الإعصار هو درجة قوية من الريح، والضروس هي درجة قوية من الحرب." },
     { id: 13, text: "حذاء : إنسان (حماية)", options: ["ظلف : خروف", "حذوة : حصان", "خاتم : ذهب", "قدم : خلخال"], answer: null, marked: false, correct: 1, explanation: "الحذاء للإنسان، والحذوة للحصان (حماية القدم)." },
 
-    // القسم 2: إكمال الجمل (14-20)
+    // إكمال الجمل (14-20)
     { id: 14, text: "احذر من ......... إذا مازحته ومن ......... إذا عاشرته.", options: ["الأرعن - السافل", "الكريم - اللئيم", "الحاقد - الحسود", "الذكي - الغبي"], answer: null, marked: false, correct: 0, explanation: "الأرعن يسيء المزاح، والسافل يظهر سوء خلقه في المعاشرة.", header: "إكمال الجمل" },
     { id: 15, text: "الموت جوعاً أشرف من أن تكون عبداً.....", options: ["قوياً", "مطيعاً", "متخماً", "سيئاً"], answer: null, marked: false, correct: 2, explanation: "متخماً تعني ممتلئاً بالطعام (تفضيل الشرف على الذل حتى مع الشبع)." },
     { id: 16, text: "من اتكل في ...... على زاد غيره طال .....", options: ["علمه – تعبه", "سفره – جوعه", "حزنه – شبعه", "حضره – خطره"], answer: null, marked: false, correct: 1, explanation: "زاد السفر يؤدي إلى الجوع عند الاعتماد على الغير." },
@@ -47,15 +47,14 @@ if (savedQuestions) {
     { id: 19, text: "السبب في ......... إما أن تكون غبياً وإما أن تكون .........", options: ["النجاح - ذكياً", "الفشل - متكاسلاً", "السعادة - متفائلاً", "التعاسة - حزيناً"], answer: null, marked: false, correct: 1, explanation: "الفشل سببه إما الغباء وإما الكسل." },
     { id: 20, text: "لكي تكون رؤيتك ...... للأمور عليك تغيير ..... ", options: ["ثاقبة - حكمك", "حصيفة - نظرتك", "مهمة - أفكارك", "جيدة - نفسك"], answer: null, marked: false, correct: 1, explanation: "الرؤية الحصيفة تتطلب تغيير النظرة للأمور." },
 
-    // القسم 2: الخطأ السياقي (21-24)
+    // الخطأ السياقي (21-25)
     { id: 21, text: "الحب قادر على بعث اسوأ المشاعر وأكثرها ألما", options: ["بعث", "اسوأ", "المشاعر", "ألما"], answer: null, marked: false, correct: 0, explanation: "الخطأ هو **بعث**، والصحيح **إثارة**.", header: "الخطأ السياقي" },
     { id: 22, text: "رأس العقل التدبير في الإنفاق دون بذل", options: ["رأس", "العقل", "الإنفاق", "بذل"], answer: null, marked: false, correct: 3, explanation: "الخطأ هو **بذل**، والصحيح **إسراف** (التدبير عكس الإسراف)." },
     { id: 23, text: "سأل الممكن الأمل أين تقيم، فأجاب في أحلام العاجز", options: ["الأمل", "يقيم", "أحلام", "العاجز"], answer: null, marked: false, correct: 0, explanation: "الخطأ هو **الأمل**، والصحيح **المستحيل**." },
     { id: 24, text: "كل شيء إذا قل رخص إلا العلم إذا كثر غلا", options: ["قل", "رخص", "العلم", "غلا"], answer: null, marked: false, correct: 0, explanation: "الخطأ هو **قل**، والصحيح **كثر**." },
-    // إضافة سؤال إضافي (25) لملء القسم الأول (25 سؤال)
     { id: 25, text: "أوجد المفردة الشاذة:", options: ["قارب", "سفينة", "مرفأ", "باخرة"], answer: null, marked: false, correct: 2, explanation: "المرفأ مكان وقوف، والبقية وسائل نقل بحرية." },
 
-    // القسم 3: استيعاب المقروء: الجدري (26-31)
+    // استيعاب المقروء: الجدري (26-31)
     { id: 26, text: "يتعدل مجموع معدلي الحضانة الجدري والجديري من:", options: ["7 إلى 14 يوم", "14 إلى 21 يوم", "26 إلى 33 يوم", "من 1 إلى 7 أيام"], answer: null, marked: false, correct: 2, explanation: "المجموع الأدنى 12+14=26، والأقصى 12+21=33.", header: "استيعاب المقروء - الجدري والجديري" },
     { id: 27, text: "مرض الجديري يعد:", options: ["مرض جلدي", "مرض تناسلي", "مرض جذعي", "مرض باطني"], answer: null, marked: false, correct: 0, explanation: "مرض جلدي (بسبب الطفح)." },
     { id: 28, text: "يمكن أن يصاب الشخص في عمر:", options: ["13 سنة", "15 سنة", "18 سنة", "19 سنة"], answer: null, marked: false, correct: 0, explanation: "13 سنة (يكثر بين الأطفال)." },
@@ -63,14 +62,14 @@ if (savedQuestions) {
     { id: 30, text: "عند الإصابة بالجديري تظهر الأعراض في خلال:", options: ["يومان", "3 ايام", "يوم", "4 ساعات"], answer: null, marked: false, correct: 1, explanation: "يتأخر ظهور الطفح حتى اليوم الثالث أو الرابع." },
     { id: 31, text: "في أي يوم يظهر الجدري؟", options: ["اليوم الأول", "اليوم الثاني", "اليوم الثالث", "اليوم الرابع"], answer: null, marked: false, correct: 0, explanation: "الجدري يظهر في اليوم الأول." },
 
-    // القسم 3: حشرة السمك (32-36)
+    // حشرة السمك (32-36)
     { id: 32, text: "ما هي الأماكن التي تكثر فيها حشرة السمك؟", options: ["الشقوق", "الأماكن الندية", "الأماكن الضيقة", "الأماكن المظلمة"], answer: null, marked: false, correct: 1, explanation: "الأماكن الندية (الرطبة/المبللة).", header: "استيعاب المقروء - حشرة السمك" },
     { id: 33, text: "أين تضع حشرة السمك بيضها؟", options: ["الأماكن التي يكثر فيها العفن", "في المحيطات", "الشقوق (الأماكن الضيقة)", "في البحيرات"], answer: null, marked: false, correct: 2, explanation: "تضع بيوضها في الشقوق." },
     { id: 34, text: "ما أسلم طريقة للتخلص من حشرة السمك والأكثر أماننًا؟", options: ["المبيدات الحشرية", "العناية بالنظافة بشكل مستمر", "بودرة سامة", "المواد المبللة"], answer: null, marked: false, correct: 1, explanation: "العناية بالنظافة بشكل مستمر (أسلم الطرق)." },
     { id: 35, text: "لماذا تأكل حشرة السمك السجاجيد؟", options: ["لأنها تكون مبللة", "لجوعها", "لعدم نظافتها (لأنها تكون متسخة)", "لأنها تكون عفنة"], answer: null, marked: false, correct: 2, explanation: "لأنها تكون متسخة (تتغذى على الأقمشة المتسخة)." },
     { id: 36, text: "أي مما يلي لا يتوافق مع النص؟", options: ["حشرة السمك تمشي بسرعة وأكلها بطيء", "تكثر حشرة السمك في الأماكن المبللة", "تكثر في الأماكن قليلة الحركة", "تأكل حشرة السمك الستائر غير النظيفة"], answer: null, marked: false, correct: 0, explanation: "لم يذكر النص سرعة أكلها." },
 
-    // القسم 3: العيوب والسمنة (37-44)
+    // العيوب والسمنة (37-44)
     { id: 37, text: "الكلمة التي نستطيع حذفها دون تغيير المعنى في 'من شغل نفسه بعيوب غيره كثرت عيوبه وهو لا يدري.'", options: ["شغل", "من", "نفسه", "هو"], answer: null, marked: false, correct: 3, explanation: "الضمير 'هو' يمكن حذفه.", header: "استيعاب المقروء - العيوب" },
     { id: 38, text: "من أسباب الإصابة بالسمنة:", options: ["قلة التوعية", "المشاكل صحية", "السمنة الوراثية", "قلة النشاط"], answer: null, marked: false, correct: 1, explanation: "السمنة حالة طبية.", header: "استيعاب المقروء - السمنة في الدول المتقدمة" },
     { id: 39, text: "نسبة غير المصابين بالسمنة في أمريكا هي:", options: ["33%", "66%", "77%", "50%"], answer: null, marked: false, correct: 1, explanation: "ثلث مصاب، فالثلثين (66%) غير مصابين." },
@@ -80,7 +79,7 @@ if (savedQuestions) {
     { id: 43, text: "السمنة في الشباب.........", options: ["متناقصة", "متنامية", "مستقرة", "زائلة"], answer: null, marked: false, correct: 1, explanation: "كثرة الإصابات تعني أنها متنامية." },
     { id: 44, text: "أي جملة تلخص الفقرة:", options: ["السمنة حالة طبية تؤدي لانخفاض متوسط العمر", "السمنة تنتشر في الدول المتقدمة", "زيادة الطاقة المأخوذة من الطعام تسبب السمنة", "أغلب الشباب المصاب بالسمنة يستمر عليها"], answer: null, marked: false, correct: 0, explanation: "أشمل جملة." },
 
-    // القسم 3: الفلاح والشجاعة (45-55)
+    // الفلاح والشجاعة (45-53)
     { id: 45, text: "لما لم يزرع الفلاح؟", options: ["كان ينتظر الوقت المناسب", "لخوفه من العواقب", "لأنه ترك العمل", "لعدم توفر البذور"], answer: null, marked: false, correct: 1, explanation: "لخوفه من المطر والنمل.", header: "استيعاب المقروء - الفلاح" },
     { id: 46, text: "السبب الذي كان يمنع الفلاح من الزراعة هو......", options: ["الخوف", "التردد", "الكسل", "التشاؤم"], answer: null, marked: false, correct: 0, explanation: "الخوف من العواقب." },
     { id: 47, text: "العبرة من القصة هي....", options: ["أن لا تدع التشاؤم يحبط عملك", "عدم التراجع", "التوكل على الله", "التحلي بالصبر"], answer: null, marked: false, correct: 0, explanation: "التشاؤم يمنع العمل." },
@@ -91,7 +90,7 @@ if (savedQuestions) {
     { id: 52, text: "الضمير في 'هزمهم' يعود:", options: ["من", "شجاع", "الناس", "الأعداء"], answer: null, marked: false, correct: 2, explanation: "يعود على 'الناس'." },
     { id: 53, text: "مرادف 'إقدامه':", options: ["جبنه", "شجاعته", "قوته", "تراجعه"], answer: null, marked: false, correct: 1, explanation: "إقدامه تعني شجاعته." },
 
-    // القسم 3: الأحذية والنمو والزيت (56-88)
+    // الأحذية والنمو والزيت (54-88)
     { id: 54, text: "من سلبيات الأحذية الخشبية؟", options: ["عدم اتزانها", "الكعب العالي", "قصور تعميمها", "ثقل وزنها"], answer: null, marked: false, correct: 0, explanation: "تسبب التزحلق (عدم الاتزان).", header: "استيعاب المقروء - الأحذية" },
     { id: 55, text: "مشكلة الكعب في الأحذية الخشبية:", options: ["صناعته صعبة", "غير متوازن", "لا يصمد", "يتلف بسرعة"], answer: null, marked: false, correct: 1, explanation: "غير متوازن (يسبب التزحلق)." },
     { id: 56, text: "يترتب على صنع الأحذية القديمة بـ؟", options: ["عرضتها للتلف", "ثقل وزنها", "عدم تناسبها", "صعوبة صنعها"], answer: null, marked: false, correct: 0, explanation: "تتلف بسرعة وتتمزق." },
@@ -104,8 +103,6 @@ if (savedQuestions) {
     { id: 63, text: "تعتبر كلمة بترول في الفقرة (4):", options: ["ترادف كلمة (زيت)", "اسم لأحد مشتقات الزيت", "قريبة لكلمة (زيت)", "اسم لأحد مشتقات الزيت الثقيلة"], answer: null, marked: false, correct: 0, explanation: "ترادف لـ 'الزيت الخام'." },
     { id: 64, text: "معنى كلمة 'سمة' في الفقرة الثانية:", options: ["نظرة", "خاصية", "حاجة", "أساس"], answer: null, marked: false, correct: 3, explanation: "الزيت أصبح أساس هذا العصر." },
     { id: 65, text: "المقصود بـ (الأساليب الاقتصادية) في فقرة (1):", options: ["المتقدمة تقنياً", "الأسهل استعمالاً", "المتوفرة اقتصادياً", "المجدية مادياً"], answer: null, marked: false, correct: 0, explanation: "التي تمكن من الاستخراج على نطاق واسع (تقنياً)." },
-
-    // استكمال القسم 3 ليصبح 38 سؤال (66-88)
     { id: 66, text: "ما وظيفة الكيروسين؟", options: ["لتوليد الكهرباء", "للإنارة والتدفئة والطهو", "لصناعة الطلاء", "لصناعة الطائرات"], answer: null, marked: false, correct: 1, explanation: "للانارة وفي اغراض التدفئة والطهو." },
     { id: 67, text: "لماذا يعد الوقود البترولي مميزًا عن الفحم؟", options: ["لأنه سائل", "لأنه رخيص", "احتراقه يكاد يكون كاملاً دون رماد", "لسهولة نقله فقط"], answer: null, marked: false, correct: 2, explanation: "يحترق بسهولة احتراقًا يكاد يكون كاملاً دون أن يخلف رمادًا." },
     { id: 68, text: "ماذا أحدث الوقود البترولي السائل في حياة البشر؟", options: ["تطور صناعة الفحم", "تغيرًا جذريًا", "صنع محركات الاحتراق الداخلي", "صعوبة في النقل"], answer: null, marked: false, correct: 1, explanation: "أحدث الوقود البترولي السائل تغيرًا جذريًا في حياة البشر." },
@@ -113,7 +110,7 @@ if (savedQuestions) {
     { id: 70, text: "ما هي المادة التي كان يستخدمها المصريون في صناعة الأحذية؟", options: ["الجلد أو ورق البردي", "المطاط", "الخشب", "النحاس"], answer: null, marked: false, correct: 0, explanation: "لبادات من الجلود أو ورق البردى." },
     { id: 71, text: "لماذا كان المصريون يرفعون مقدمة الصندل للأعلى؟", options: ["للتزيين", "لحماية إبهام القدمين", "لمواكبة الموضة", "لجعله يتلف بسرعة"], answer: null, marked: false, correct: 1, explanation: "ولحماية إبهام القدمين كانوا يرفعون مقدمة الصندل إلى الأعلى." },
     { id: 72, text: "ما اسم الأحذية التي صنعها الرومان؟", options: ["كالسيوس", "صندل", "حذوة", "لبادات"], answer: null, marked: false, correct: 0, explanation: "صنعوا نوعًا من الأحذية أسموه 'كالسيوس'." },
-    { id: 73, text: "متى بدأ الإنجليز في صناعة الأحذية بفردة يمين وأخرى يسار؟", options: ["قبل الرومان", "بعد الرومان", "قبل المصريين", "في نفس عصر المصريين"], answer: null, marked: false, correct: 1, explanation: "تطوروا وصنع البريطانيون أحذية من المطاط وجعلوها فردة يمين وأخرى يسار (أي بعد الرومان)." },
+    { id: 73, text: "متى بدأ الإنجليز في صناعة الأحذية بفردة يمين وأخرى يسار؟", options: ["قبل الرومان", "بعد الرومان", "قبل المصريين", "في نفس عصر المصريين"], answer: null, marked: false, correct: 1, explanation: "بعد الرومان." },
     { id: 74, text: "كم شقًا كانت للأحذية الرومانية؟", options: ["4", "6", "8", "10"], answer: null, marked: false, correct: 2, explanation: "كانت له 8 شقوق على الجانبين." },
     { id: 75, text: "في أي وقت بدأ التنقيب عن الزيت على نطاق واسع؟", options: ["النصف الأول من ق19", "قبل نهاية النصف الأول من ق19", "القرن 20", "قبل القرن 18"], answer: null, marked: false, correct: 1, explanation: "وقبل نهاية النصف الأول من القرن التاسع عشر حفر أول بئر." },
     { id: 76, text: "ما المادة التي لا يتوافق النص معها؟", options: ["الإسفلت", "البنزين", "الكيروسين", "الفحم"], answer: null, marked: false, correct: 3, explanation: "الفحم وقود وليس من مشتقات الزيت." },
@@ -123,24 +120,23 @@ if (savedQuestions) {
     { id: 80, text: "ما العلاقة بين النمو والتنمية؟", options: ["كلاهما لا يؤثر في الآخر", "كلاهما يعتمد على الآخر لوصف النجاح", "النمو أهم من التنمية", "التنمية أهم من النمو"], answer: null, marked: false, correct: 1, explanation: "كل منهما يعتمد على الآخر لوصف النجاح في تحقيق الأهداف." },
     { id: 81, text: "ما الذي يشكل الجزء الأكبر في حياتنا لحدوث التغيير المصاحب للتنمية؟", options: ["التوسع الاجتماعي", "التوسع الاقتصادي", "التوسع العمراني", "التوسع الثقافي"], answer: null, marked: false, correct: 1, explanation: "التوسع الاقتصادي في ظل تنظيمات معينة." },
     { id: 82, text: "متى يحدث النمو والتنمية معًا؟", options: ["بتحديد الأهداف وإنجازها بوجود الإرادة", "عندما يسبق النمو التنمية", "عندما تسبق التنمية النمو", "عندما لا يحدث أي منهما"], answer: null, marked: false, correct: 0, explanation: "يجب تحديد الأهداف وإنجازها بوجود الإرادة." },
-    // إضافة أسئلة إضافية لملء القسم الثالث (38 سؤال)
     { id: 83, text: "ما الضرر الذي تسببه الأحذية الخشبية؟", options: ["ثقيلة وتسبب التزحلق", "قصيرة العمر وتتمزق", "صعبة اللبس", "غالية الثمن"], answer: null, marked: false, correct: 0, explanation: "ثقيلة الوزن وتسبب التزحلق." },
     { id: 84, text: "لماذا كان البنزين لا يكاد يفي بالطلب المتزايد عليه؟", options: ["لقلة الطلب", "لأنه ينتج عن الزيت الخام", "لأن نسبة البنزين في الزيت الخام ضئيلة", "لأنه مادة عازلة"], answer: null, marked: false, correct: 2, explanation: "لأن نسبة البنزين في الزيت الخام ضئيلة." },
     { id: 85, text: "العلاقة بين 'النمو' و 'التغير في الجوانب المادية':", options: ["تضاد", "ترادف", "تعريف", "سبب ونتيجة"], answer: null, marked: false, correct: 2, explanation: "النمو هو تعريف التغير المادي." },
     { id: 86, text: "العبارة 'من شغل نفسه بعيوب غيره كثرت عيوبه' تعني:", options: ["الذي يركز على عيوب الناس يزيد من عيوبه", "الذي يرى عيوبه يقلل منها", "الذي يركز على عيوب الناس لا يهتم بعيوبه", "كل ما سبق"], answer: null, marked: false, correct: 0, explanation: "الشخص الذي يركز على عيوب الآخرين لا يرى عيوبه الخاصة فتزداد." },
     { id: 87, text: "تستطيع حشرة السمك التغذي على أغلفة الكتب لأنها:", options: ["مصنوعة من القماش", "مصنوعة من الورق", "تحتوي على السكريات", "غير نظيفة"], answer: null, marked: false, correct: 1, explanation: "تتغذى على الأقمشة وأغلفة الكتب." },
-    { id: 88, text: "ما الفرق الرئيسي في شكل طفح الجدري والجديري؟", options: ["اللون", "الحجم", "مكان الظهور ووقت التحول", "مدة العلاج"], answer: null, marked: false, correct: 2, explanation: "طفح الجدري على الوجه أولاً ويتم في اليوم الثامن، والجديري على الجذع ويتم في ساعات قليلة." },
+    { id: 88, text: "ما الفرق الرئيسي في شكل طفح الجدري والجديري؟", options: ["اللون", "الحجم", "مكان الظهور ووقت التحول", "مدة العلاج"], answer: null, marked: false, correct: 2, explanation: "مكان الظهور ووقت التحول." },
 
-    // القسم 4: الجبر والحساب والمسائل المقالية (89-110)
+    // الجبر والحساب (89-103)
     { id: 89, text: "أوجد قيمة المقدار: $\\frac{1}{3} + (\\frac{1}{2} \\times \\frac{1}{3}) – \\frac{1}{6} - \\frac{1}{3}$", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, explanation: "الجواب الرياضي الصحيح هو 0.", header: "الجبر والحساب" },
     { id: 90, text: "بطاقات مرقمة من 1 إلى 99، فما احتمال سحب بطاقة مجموع رقميها أكبر من 11؟", options: ["10/99", "11/99", "27/99", "28/99"], answer: null, marked: false, correct: 3, explanation: "عدد الأرقام هو 28." },
     { id: 91, text: "$10^6 – 1 = .....$", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 2, explanation: "$1,000,000 - 1 = 999,999$." },
-    { id: 92, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1, explanation: "20 مرة (في الآحاد 10 و في العشرات 10)." },
+    { id: 92, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1, explanation: "20 مرة." },
     { id: 93, text: "ما قيمة المقدار تقريباً: $\\frac{10}{\\sqrt{30} \\times \\sqrt{10}}$", options: ["1/\\sqrt{3}", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0, explanation: " $\\frac{10}{\\sqrt{300}} = \\frac{1}{\\sqrt{3}}$." },
     { id: 94, text: "ما نصف العدد $2^{50}$", options: ["$2^{62}$", "$2^{52}$", "$2^{49}$", "$2^{51}$"], answer: null, marked: false, correct: 2, explanation: "$2^{50} / 2 = 2^{49}$." },
     { id: 95, text: "إذا كان $2^n + 2^n + 2^n +2^n = 8^2$ فما قيمة $n$؟", options: ["2", "8", "4", "6"], answer: null, marked: false, correct: 2, explanation: "$4 \\times 2^n = 64 \\Rightarrow n=4$." },
     { id: 96, text: "أوجد قيمة المقدار: $\\frac{18 \\times 32}{16 \\times 9}$", options: ["1", "2", "4", "6"], answer: null, marked: false, correct: 2, explanation: "$ (18/9) \\times (32/16) = 4$." },
-    { id: 97, text: "شخص عمره 4.15 سنة، فعمره تقريبًا 4 سنوات و .....", options: ["شهر و28 يوم", "ثلاثة أشهر", "15 يوم", "شهر و 24 يوم"], answer: null, marked: false, correct: 3, explanation: "$0.15 \\times 12 = 1.8$ شهر = 1 شهر و 24 يوم." },
+    { id: 97, text: "شخص عمره 4.15 سنة، فعمره تقريبًا 4 سنوات و .....", options: ["شهر و28 يوم", "ثلاثة أشهر", "15 يوم", "شهر و 24 يوم"], answer: null, marked: false, correct: 3, explanation: "شهر و 24 يوم." },
     { id: 98, text: "أوجد قيمة: 4% من 100", options: ["4", "3.96", "3.92", "3.84"], answer: null, marked: false, correct: 0, explanation: "4." },
     { id: 99, text: "أوجد قيمة: $\\frac{4}{10} / \\frac{9}{10}$", options: ["4/10", "5/10", "4/9", "5/9"], answer: null, marked: false, correct: 2, explanation: " $\\frac{4}{9}$." },
     { id: 100, text: "ما قيمة $(51)^2 – (49)^2$", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, explanation: " 200." },
@@ -148,6 +144,7 @@ if (savedQuestions) {
     { id: 102, text: "أوجد قيمة المقدار: $\\frac{2^7 + 2^7}{2^7 + 2^7 + 2^7 + 2^7}$", options: ["1/4", "1/2", "1/8", "1/16"], answer: null, marked: false, correct: 1, explanation: " 1/2." },
     { id: 103, text: "أوجد الحد التالي: 3، 7، 9، 15، .........", options: ["19", "21", "23", "25"], answer: null, marked: false, correct: 2, explanation: " 23." },
     
+    // المسائل المقالية (104-110)
     { id: 104, text: "نريد توزيع 64 حاسب و 48 طابعة على عدد من الغرف. فما أكبر عدد من هذه الغرف؟", options: ["8 غرف", "12 غرفة", "16 غرفة", "24 غرفة"], answer: null, marked: false, correct: 2, explanation: "القاسم المشترك الأكبر لـ 64 و 48 هو 16.", header: "الأسئلة المقالية" },
     { id: 105, text: "زادت أرباح شركة بقدار 10% كل سنة خلال 3 سنوات. فما إجمالي الأرباح بعد السنة الثالثة؟", options: ["25%", "33.1%", "35%", "30%"], answer: null, marked: false, correct: 1, explanation: " 33.1%." },
     { id: 106, text: "أب عمره 71، وابن عمره 35، فبعد كم سنة يصبح عمر الأب مثلي عمر الابن؟", options: ["سنة", "سنتين", "8 سنين", "4 سنين"], answer: null, marked: false, correct: 0, explanation: " سنة." },
@@ -156,7 +153,7 @@ if (savedQuestions) {
     { id: 109, text: "دفع أحمد 45% وفهد 25%، وتبقى 360000 ريال. فما تكلفة بناء المسجد كاملة؟", options: ["1200000 ريال", "1400000 ريال", "2400000 ريال", "1000000 ريال"], answer: null, marked: false, correct: 0, explanation: " 1200000 ريال." },
     { id: 110, text: "اشترى تاجر سلعة بـ 90، يبيع بربح 50%، خصم نقدي 30%. فما نسبة ربح التاجر إذا باع نقداً؟", options: ["5%", "10%", "20%", "30%"], answer: null, marked: false, correct: 0, explanation: " 5%." },
 
-    // القسم 5: الهندسة (111-122)
+    // الهندسة (111-122)
     { id: 111, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["$230^{\\circ}$", "$130^{\\circ}$", "$270^{\\circ}$", "$115^{\\circ}$"], answer: null, marked: false, correct: 0, explanation: " 230.", header: "الهندسة" },
     { id: 112, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2, explanation: " 9." },
     { id: 113, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة $80^{\\circ}$).", options: ["$80^{\\circ}$", "$100^{\\circ}$", "$110^{\\circ}$", "$120^{\\circ}$"], answer: null, marked: false, correct: 1, explanation: " 100." },
@@ -170,7 +167,7 @@ if (savedQuestions) {
     { id: 121, text: "ما متوسط الإيرادات للأعوام الأربعة؟ ($8+12+10+16$).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0, explanation: " 11.5." },
     { id: 122, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, explanation: " 15." },
 
-    // القسم 5: أسئلة المقارنة (123-134)
+    // أسئلة المقارنة (123-134)
     { id: 123, text: "قارن بين: القيمة الأولى: $9 – 0.0044$، القيمة الثانية: $9 – 0.00044$", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1, explanation: "طرح عدد أصغر يعطي نتيجة أكبر.", header: "أسئلة المقارنة" },
     { id: 124, text: "قارن بين: القيمة الأولى: كمية العصير التي تملأ الإسطوانة، القيمة الثانية: 750 ملليلتر", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 0, explanation: "تم افتراض أن السعة أكبر من 750 مل." },
     { id: 125, text: "قارن بين: القيمة الأولى: 40% من 60، القيمة الثانية: 60 من 40%", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 2, explanation: "متساويتان." },
@@ -188,7 +185,7 @@ if (savedQuestions) {
 
 // دالة تنسيق النص (للكسور والجذور)
 function formatText(text) {
-  // تبديل الكسور LaTeX إلى عرض HTML بسيط (يمكن تعديله ليكون أجمل باستخدام CSS أو MathJax إذا توفر)
+  // تبديل الكسور LaTeX إلى عرض HTML بسيط
   return text.replace(/(\\frac{([^{}]+)}{([^{}]+)})/g, (match, p1, numerator, denominator) => {
       return `<span style="font-size: 1.2em; vertical-align: middle;">${numerator}&frasl;${denominator}</span>`;
   })
@@ -199,23 +196,28 @@ function updateQuestion() {
   const q = questions[currentIndex];
   const sectionTitleElement = document.getElementById("section-title");
 
-  // 1. تحديد القسم الحالي ونطاق السؤال ضمن القسم (للمحاكي الواقعي)
-  let currentSectionRange = sectionRanges[section - 1];
-  let questionIndexInSection = (currentIndex - currentSectionRange.start) + 1;
-  let totalQuestionsInSection = currentSectionRange.end - currentSectionRange.start + 1;
-
-  // 2. عرض عنوان القسم العام
+  // 1. تحديد القسم الحالي (للمحاكي الواقعي)
+  let currentSectionName = "";
   if (mode === 'real') {
-      sectionTitleElement.innerHTML = `<h2>القسم ${section}: ${currentSectionRange.name}</h2>`;
-  } else {
-      sectionTitleElement.innerHTML = `<h2>الاختبار السريع: ${q.header || 'أسئلة متنوعة'}</h2>`;
+    const currentSectionData = sectionRanges[section - 1];
+    if (currentSectionData) {
+        currentSectionName = currentSectionData.name;
+    }
+  }
+
+  // 2. عرض عنوان القسم العام واسم الفقرة (Header) ورقم السؤال
+  sectionTitleElement.innerHTML = '';
+  if (currentSectionName) {
+      sectionTitleElement.innerHTML += `<h2>${currentSectionName}</h2>`;
   }
   
-  // 3. عرض عنوان الفقرة (Header) ورقم السؤال
-  sectionTitleElement.innerHTML += `<h3 style="color: #023e8a; margin-top: 10px;">${q.header || ''}</h3>`;
+  if (q.header && (currentIndex === 0 || questions[currentIndex - 1].header !== q.header)) {
+      sectionTitleElement.innerHTML += `<h3 style="color: #023e8a; margin-top: 10px;">${q.header}</h3>`;
+  }
+
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 4. عرض نص السؤال وتنسيق الكسور
+  // 3. عرض نص السؤال وتنسيق الكسور
   document.getElementById("question-text").innerHTML = formatText(q.text);
 
   let answersHTML = "";
@@ -242,6 +244,7 @@ function saveAnswer() {
 
 function nextQuestion() {
   saveAnswer();
+  // تحقق من الانتقال إلى السؤال التالي أو القسم التالي
   if (currentIndex < questions.length - 1) {
     currentIndex++;
     updateQuestion();
@@ -293,11 +296,20 @@ function chooseQuestion() {
 function endSection() {
   saveAnswer();
   if (mode === "real" && section < totalSections) {
-    localStorage.setItem("section", section + 1);
-    location.reload();
-  } else {
-    finishExam();
+    // منطق الانتقال للقسم التالي في المحاكي الواقعي
+    const nextSectionIndex = section;
+    if (nextSectionIndex < totalSections) {
+        localStorage.setItem("section", nextSectionIndex + 1);
+        const nextQuestionStart = sectionRanges[nextSectionIndex].start;
+        // حفظ الأسئلة الحالية والتحميل من السؤال الأول في القسم التالي
+        localStorage.setItem("questions", JSON.stringify(questions)); 
+        localStorage.setItem("returnTo", nextQuestionStart); 
+        location.reload();
+        return;
+    }
   }
+  
+  finishExam();
 }
 
 function finishExam() {
