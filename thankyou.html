@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>شكرًا لك</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* تنسيق خاص لتقرير الأخطاء */
+    #error-report {
+      margin-top: 30px;
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
+    }
+    .error-item {
+      border: 1px solid #e74c3c;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background-color: #fce7e7;
+    }
+    .error-item h4 {
+      color: #c0392b;
+      margin-top: 0;
+    }
+    .correct-answer {
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .user-answer-missed {
+        color: #e67e22;
+        font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>🎉 شكرًا لك!</h2>
+    <p>لقد أنهيت الاختبار بنجاح.</p>
+    
+    <div id="results-summary">
+        <h3>ملخص النتيجة النهائية</h3>
+        <p><strong>عدد الأسئلة الكلي:</strong> <span id="total-q"></span> سؤال</p>
+        <p><strong>الأسئلة الصحيحة:</strong> <span id="correct-q"></span> سؤال</p>
+        <p><strong>الدرجة النهائية:</strong> <span id="final-score"></span> (معدل $0.83$ لكل سؤال)</p>
+    </div>
+    
+    <div id="error-report">
+        <h3>تقرير الأخطاء والمراجعة (<span id="error-count">0</span> خطأ)</h3>
+        <div id="error-list"></div>
+    </div>
+
+    <button onclick="goHome()">🔙 العودة للصفحة الرئيسية</button>
+  </div>
+
+  <script>
+    function goHome() {
+      // تنظيف الـ localStorage عند العودة
+      localStorage.removeItem("mode");
+      localStorage.removeItem("section");
+      localStorage.removeItem("totalSections");
+      localStorage.removeItem("quizResults");
+      window.location.href = "index.html";
+    }
+
+    // عرض النتائج وتقرير الأخطاء
+    document.addEventListener("DOMContentLoaded", () => {
+        const results = JSON.parse(localStorage.getItem("quizResults"));
+        const errorListElement = document.getElementById("error-list");
+        
+        if (results) {
+            document.getElementById("total-q").textContent = results.total;
+            document.getElementById("correct-q").textContent = results.correct;
+            document.getElementById("final-score").textContent = results.score;
+            document.getElementById("error-count").textContent = results.errors.length;
+
+            if (results.errors.length === 0) {
+                errorListElement.innerHTML = "<p>✅ أحسنت! لم يتم تسجيل أي أخطاء.</p>";
+            } else {
+                results.errors.forEach(error => {
+                    const errorItem = document.createElement('div');
+                    errorItem.className = 'error-item';
+                    
+                    const userAnswerClass = error.userAnswer === "لم تتم الإجابة" ? "user-answer-missed" : "";
+
+                    errorItem.innerHTML = `
+                        <h4>❌ خطأ في القسم ${error.section} - السؤال رقم ${error.question}</h4>
+                        <p><strong>السؤال:</strong> ${error.text}</p>
+                        <p><strong>إجابتك:</strong> <span class="${userAnswerClass}">${error.userAnswer}</span></p>
+                        <p class="correct-answer"><strong>الإجابة الصحيحة:</strong> ${error.correctAnswer} (${error.correctLabel})</p>
+                    `;
+                    errorListElement.appendChild(errorItem);
+                });
+            }
+        } else {
+             document.getElementById("results-summary").innerHTML = "<p>لا تتوفر تفاصيل للنتائج. يرجى إعادة الاختبار.</p>";
+             document.getElementById("error-report").style.display = 'none';
+        }
+    });
+  </script>
+</body>
+</html>
