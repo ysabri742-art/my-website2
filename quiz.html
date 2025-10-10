@@ -8,20 +8,27 @@
 </head>
 <body>
   <div class="quiz-container">
-    <h2 id="section-title">القسم</h2>
+    <div id="section-title"></div> 
+    
     <div id="timer">الوقت المتبقي: 25:00</div>
+    
+    <div id="paragraph-box" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; text-align: justify;">
+      </div>
+    
     <div id="question-box">
       <p id="question-text">تحميل السؤال...</p>
       <div id="answers"></div>
       <button onclick="markQuestion()">⭐ وضع علامة مرجعية</button>
     </div>
+    
     <div class="navigation">
       <button onclick="prevQuestion()">⬅️ السابق</button>
       <button onclick="nextQuestion()">➡️ التالي</button>
       <button onclick="reviewSection()">📋 مراجعة القسم</button>
     </div>
-    <button id="submit-section-btn" onclick="endSection()">✅ تسليم القسم</button>
-    <button id="end-exam" onclick="finishExam()">🏁 إنهاء الامتحان</button>
+    
+    <button id="submit-section-btn" onclick="endSection()">✅ تسليم القسم / 🏁 إنهاء الامتحان</button>
+    
   </div>
   <script src="quiz.js"></script>
 </body>
