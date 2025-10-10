@@ -1,7 +1,6 @@
 // =================================================================
 // قائمة الأسئلة الـ 120 (من ملف اختبار محاكي منصة جهاد)
 // **ملاحظة: السؤال ID 90 محذوف تمامًا من القائمة.**
-// **تم حذف خاصية imageURL من جميع أسئلة الهندسة والإحصاء والمقارنات (91-120).**
 // =================================================================
 const rawQuestionsData = [
     // المفردة الشاذة (1-7)
@@ -148,7 +147,7 @@ const rawQuestionsData = [
     { id: 88, text: "عجلة نصف قطرها = 50سم وتدور 6 دورات. فكم المسافة التي تقطعها بالمتر؟", options: ["1884", "188.4", "18.84", "1.884"], correct: 2, explanation: " 2 × 3.14 × 0.5 × 6 = 18.84 متر.", value: 0.83 },
     { id: 89, text: "وزعت 32 قطعة كعك بالتساوي على 12 طفل، فكم عدد القطع المتبقية؟", options: ["8 قطع", "9 قطع", "10 قطع", "11 قطعة"], correct: 0, explanation: " 32 ÷ 12 الباقي 8.", value: 0.83 },
 
-    // الهندسة (91-101) - ملاحظة: تم حذف السؤال 90 وإدراج الصور بدون imageURL من 91
+    // الهندسة (91-101) - ملاحظة: تم حذف السؤال 90 وإدراج الصور
     { id: 91, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], correct: 2, explanation: "$ \\text{ب ج} = \\sqrt{4^2+4^2} = \\sqrt{32}$. $ \\text{أ ج} = \\sqrt{7^2+32} = \\sqrt{81} = 9$.", value: 0.83 },
     { id: 92, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة $80^{\\circ}$).", options: ["$80^{\\circ}$", "$100^{\\circ}$", "$110^{\\circ}$", "$120^{\\circ}$"], correct: 1, explanation: " $180 - 80 = 100^{\\circ}$.", value: 0.83 },
     { id: 93, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], correct: 2, explanation: "الوتر $= 5$. المحيط $= 3 + 4 + 5 + 5 + 5 = 22$.", value: 0.83 },
@@ -174,7 +173,7 @@ const rawQuestionsData = [
     { id: 111, text: "في مستطيل أ ب ج د، قارن بين: عدد مستقيمات أ ب ج د (4 أضلاع و 2 قطر) و 6", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 2, explanation: " $4+2=6$. متساويتان.", value: 0.83 },
     { id: 112, text: "المسافة من س إلى ص = 12، والمسافات بينهم متساوية. قارن بين: 3 و ع ل.", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 1, explanation: "المسافة ع ل = $12/3 = 4$. الثانية (4) أكبر من الأولى (3).", value: 0.83 },
     { id: 113, text: "قارن بين: محيط سداسي منتظم قطره = 8، محيط دائرة قطرها = 8", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 1, explanation: "السداسي 24، الدائرة $\\approx 25.12$. الثانية أكبر.", value: 0.83 },
-    { id: 114, text: "إذا كان $3 < س < 5$، $ص < س$. قارن بين: 0.75 و $س/ص$", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 1, explanation: "بما أن $س>ص>0$، فإن $س/ص > 1$. $1 > 0.75$.", value: 0.83 },
+    { id: 114, text: "قارن بين: 0.75 و س/ص (حيث $3 < س < 5$، $ص < س$).", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 1, explanation: "بما أن $س>ص>0$، فإن $س/ص > 1$. $1 > 0.75$.", value: 0.83 },
     { id: 115, text: "قارن بين: عمر أحمد بالهجري، عمر أحمد بالميلادي", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 3, explanation: "المعطيات غير كافية.", value: 0.83 },
     { id: 116, text: "قارن بين: نسبة المظلل إلى الشكل، و $3:1$", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 2, explanation: "نسبة المظلل $\\frac{1}{2}$. تم الالتزام بالحل 'متساويتان'.", value: 0.83 },
     { id: 117, text: "قارن بين: $(7 + 6) \\div (6 + 7)$ و $(7 + 7) \\div (7 + 8)$", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], correct: 0, explanation: "الأولى = 1، الثانية = $14/15$. الأولى أكبر.", value: 0.83 },
@@ -190,87 +189,24 @@ let section = parseInt(localStorage.getItem("section") || "1");
 const totalSections = 5;
 let currentIndex = 0;
 
+// ******************************************************
+// المفتاح لتخزين النتائج التراكمية لكل قسم (للتجميع في النهاية)
+// ******************************************************
+const SECTION_RESULTS_KEY = 'examSectionResults';
+
 // الوقت الافتراضي: 25 دقيقة (1500 ثانية)
 const DEFAULT_TIME_SECONDS = 25 * 60;
 let timeLeft = DEFAULT_TIME_SECONDS;
 
 let questions = [];
 
-// ---------- فقرات الاستيعاب (Passages) ----------
-const questionParagraphs = [
-  // الجدري والجديري -> أسئلة 25-30
-  {
-    start: 25, end: 30,
-    title: "الجدري والجديري",
-    text: `الجديري مرض ينشأ عن فيروس يختلف عن فيروس الجدري، ولذلك يسمى بالجدري الكاذب، ويكثر بين الأطفال، ونسبة وفياته قليلة بالنسبة إلى وفيات الجدري، ومدة حضانته أطول، فهي اسبوعان أو ثلاثة، بينما في الجدري هي اثنا عشر يومًا، ويبدأ المرض بتوعك بسيط مع ارتفاع قليل في درجة الحرارة، وبعد أربع وعشرين ساعة يظهر الطفح الخاص بالمرض على شكل حليمات تتحول في مدة ساعة أو اثنتين إلى حويصلات، وقد يظهر البعض منها على شكل بثرات، ويمكن التفريق بين طفح الجديري وطفح الجدري بتأخر ظهور الأول حتى اليوم الثالث أو الرابع، وظهور الثاني في اليوم الاول، ويظهر طفح الجدري أولاً على الوجه، أما طفح الجديري فيظهر على الجذع، ويتطور من حليمات إلى بثرات يتم في الجدري في اليوم الثامن من ظهور الطفح، ويتم في طفح الجديري في ساعات قليلة، وتنتقل عدوى الجديري بواسطة الرذاذ الخارج من المسالك التنفسية العليا للمرضى.`
-  },
-
-  // حشرة السمك -> أسئلة 31-35
-  {
-    start: 31, end: 35,
-    title: "حشرة السمك",
-    text: `حشرة السمك هي عبارة عن حشرة صغير، طولها يبلغ 1سم، لونها فضي، تضع بيوضها في الشقوق، وعندما تفقس تتحول صغارها إلى حورية فتكبر بسرعة وتتغذى على اللوحات والأقمشة وأغلفة الكتب والستائر والسجاد لأنها تكون متسخة. تكثر حشرة السمك في الأماكن الرطبة (المبللة) وقليلة الحركة (يقل فيها الناس) وحشرة السمك تمشي بسرعة. ولمكافحة تلك الحشرة يوجد العديد من الطرق فلابد النظافة والعناية المنزلية المستمرة أو استخدام مواد طاردة ويمكن وضع مادة قابلة للبلل.`
-  },
-
-  // العيوب -> سؤال 36 فقط
-  {
-    start: 36, end: 36,
-    title: "العيوب",
-    text: `من شغل نفسه بعيوب غيره كثرت عيوبه وهو لا يدري.`
-  },
-
-  // السمنة -> أسئلة 37-42
-  {
-    start: 37, end: 42,
-    title: "السمنة في الدول المتقدمة",
-    text: `تعرف السمنة بأنها حالة طبية تتراكم فيها دهون الجسم الزائدة لدرجة أنها تؤثر على الجسم بشكل سلبي، وتؤدي لانخفاض متوسط عمر الفرد، وسببت هذه المشكلة آثاراً سيئة في عدد من الدول، ومنها الولايات المتحدة الأمريكية حيث أن أكثر من ثلث سكانها مصابون بالسمنة، و25% من سكان كندا مصابون بالسمنة أيضاً، وعدد كبير من الشباب يصاب بها، ومن أبرز أسباب الإصابة بها الجلوس الطويل أمام التلفاز والحاسوب، ويصاب الفرد بالسمنة بسبب أن الطاقة التي يأخذها من الطعام أكبر من قدر الطاقة التي يستهلكها، وأغلب من أصيب بالسمنة من الشباب سيظل مصاباً بها حتى في سن متقدم.`
-  },
-
-  // الفلاح -> أسئلة 43-45
-  {
-    start: 43, end: 45,
-    title: "قصة الفلاح",
-    text: `سأل أحدهم فلاحاً فقال له : أزرعت قمحاً هذه السنة؟ قال الفلاح : لا، فقد خفت أن يأتي المطر ويفسده. فسأله الرجل : إذا زرعت ذرة؟ قال الفلاح : لا فقد خفت أن يأكلها النمل. قال الرجل : ما الذي زرعته إذا؟ قال الفلاح : لم أزرع شيئاً، وهكذا أنا في الجانب الآمن.`
-  },
-
-  // الشجاعة -> أسئلة 46-50
-  {
-    start: 46, end: 50,
-    title: "الشجاعة",
-    text: `كم من شجاع غلب الناس بشجاعته وهزمهم بإقدامه!`
-  },
-
-  // الأحذية -> أسئلة 51-53
-  {
-    start: 51, end: 53,
-    title: "الأحذية",
-    text: `كان المصريون أول شعب متحضر يصنع الأحذية... (النص يذكر استخدام لبادات الجلود والبردى، تطور الرومان، وصنع الأحذية الخشبية التي كانت ثقيلة وتسبب الانزلاق، ثم البريطانيون صنعوا أحذية المطاط).`
-  },
-
-  // النمو والتنمية -> أسئلة 54-57
-  {
-    start: 54, end: 57,
-    title: "النمو والتنمية",
-    text: `كلمتا النمو والتنمية كلمتان مترابطتان... (تتحدث الفقرة عن مفهوم النمو كمظهر مادي، والتنمية كتطور نوعي وإجراءات لتحسين الظروف وتلبية الاحتياجات العامة).`
-  },
-
-  // الزيت -> أسئلة 58-62
-  {
-    start: 58, end: 62,
-    title: "الزيت",
-    text: `عرف الإنسان الزيت من قديم الزمان واستعمله في احتياجاته كالبناء والطلاء، وتعبيد الطرق، ومداواة الجروح... ومع الزمن اتسعت صناعة البترول ومنتجاته الكيميائية، فأصبح يصنع منها الآن عدد لا يحصى من المواد.`
-  }
-];
+// (فقرات الاستيعاب - مصفوفة questionParagraphs موجودة سابقاً)
 
 // ---------- دوال مساعدة لصياغة النص وعرض الدرجة ----------
 function el(id) {
   return document.getElementById(id);
 }
 
-/**
- * findParagraphForQuestion(qId)
- * - يرجع كائن الفقرة (title, text) أو null إذا لا توجد فقرة للسؤال.
- */
 function findParagraphForQuestion(qId) {
   for (const p of questionParagraphs) {
     if (qId >= p.start && qId <= p.end) return p;
@@ -278,24 +214,16 @@ function findParagraphForQuestion(qId) {
   return null;
 }
 
-/**
- * normalizeText(raw)
- * - يصحح عرض الرموز الرياضية والدرجات (مثل $...$).
- */
 function normalizeText(raw) {
   if (!raw && raw !== "") return "";
   let t = String(raw);
-  // استبدال رموز LaTeX الشائعة غير المعالجة بـ HTML
   t = t.replace(/\^\{\\circ\}/g, "°");
   t = t.replace(/\\circ/g, "°");
-  t = t.replace(/\$/g, ""); // إزالة علامات $
+  t = t.replace(/\$/g, ""); 
   return t;
 }
 
 // ---------- تهيئة الأسئلة (load based on mode) ----------
-let questions = [];
-
-// تصفية القائمة الأصلية لحذف السؤال رقم 90
 const filteredQuestions = rawQuestionsData.filter(q => q.id !== 90);
 
 let savedQuestions = localStorage.getItem("questions");
@@ -313,13 +241,15 @@ if (savedQuestions) {
     }));
   } else if (mode === "real") {
     // المحاكي الواقعي: تقسيم الأسئلة المفلترة على 5 أقسام
-    const questionsPerSection = Math.floor(filteredQuestions.length / totalSections); 
+    const totalFilteredQuestions = filteredQuestions.length; // 119
+    // يجب تحديد عدد أسئلة القسم الأول: 24 (119 = 24*4 + 23)
+    const questionsPerSection = 24; 
     const startIndex = (section - 1) * questionsPerSection;
     let endIndex = startIndex + questionsPerSection;
     
-    // لضمان أن القسم الأخير يأخذ ما تبقى
+    // القسم الأخير (5) يأخذ ما تبقى
     if (section === totalSections) {
-        endIndex = filteredQuestions.length;
+        endIndex = totalFilteredQuestions;
     }
     
     questions = filteredQuestions.slice(startIndex, endIndex).map(q => ({
@@ -356,7 +286,7 @@ function updateQuestion() {
 
   if (passageContainer) {
     if (paragraph) {
-      // نعرض الفقرة دائماً مع كل سؤال من مجموعة الفقرة (كما طلبت)
+      // نعرض الفقرة دائماً مع كل سؤال من مجموعة الفقرة
       passageContainer.innerHTML = `
                 <div class="passage-box" role="region" aria-label="فقرة الاستيعاب">
           <h3 id="passage-header" class="passage-title" style="color: #0077b6; margin-top: 0;">${escapeHtml(paragraph.title)}</h3>
@@ -425,7 +355,6 @@ function saveAnswer() {
   // حفظ التقدّم في localStorage
   localStorage.setItem("questions", JSON.stringify(questions));
   localStorage.setItem("timeLeft", timeLeft);
-  // قسم (section) موجود مسبقاً في localStorage إن الوضع real
   if (mode === "real") {
     localStorage.setItem("section", section);
   }
@@ -453,7 +382,6 @@ function markQuestion() {
   alert("⭐ تم وضع علامة مرجعية");
 }
 
-// ---------- صفحة المراجعة الجزئية للقسم ----------
 function reviewSection() {
   saveAnswer();
 
@@ -496,7 +424,22 @@ function chooseQuestion() {
 // ---------- إنهاء القسم (تسليم) ----------
 function endSection() {
   saveAnswer();
-
+  
+  // ******************************************************
+  // التعديل الرئيسي: حساب وحفظ نتائج القسم الحالي تراكمياً
+  // ******************************************************
+  const sectionSummary = calculateSectionSummary(questions);
+  let allResults = JSON.parse(localStorage.getItem(SECTION_RESULTS_KEY) || '[]');
+  
+  // إضافة نتيجة هذا القسم إلى التخزين التراكمي
+  allResults.push({ 
+      section: section, 
+      summary: sectionSummary, 
+      questions: questions 
+  });
+  localStorage.setItem(SECTION_RESULTS_KEY, JSON.stringify(allResults));
+  
+  
   if (mode === "real" && section < totalSections) {
     if (!confirm(`هل أنت متأكد من تسليم القسم ${section} والانتقال للقسم ${section + 1}؟ لن تتمكن من العودة لهذا القسم.`)) {
       return;
@@ -509,51 +452,85 @@ function endSection() {
     localStorage.removeItem("timeLeft");
     location.reload();
   } else {
-    // استدعاء إنهاء الامتحان النهائي
+    // استدعاء إنهاء الامتحان النهائي (القسم الأخير أو الوضع السريع)
     finishExam();
   }
 }
 
-// ---------- إنهاء الامتحان: حساب الدرجات + تخزين النتائج ----------
+// ---------- دالة لحساب ملخص القسم الحالي (مساعدة) ----------
+function calculateSectionSummary(sectionQuestions) {
+    let score = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let unattemptedCount = 0;
+    let reviewQuestions = [];
+
+    sectionQuestions.forEach(q => {
+        if (q.answer !== null) {
+            if (q.answer === q.correct) {
+                correctCount++;
+                score += q.value || 0;
+            } else {
+                incorrectCount++;
+                reviewQuestions.push(q);
+            }
+        } else {
+            unattemptedCount++;
+            reviewQuestions.push(q);
+        }
+    });
+
+    return { score, correctCount, incorrectCount, unattemptedCount, reviewQuestions };
+}
+
+
+// ---------- إنهاء الامتحان: حساب الدرجات النهائية + تخزين النتائج ----------
 function finishExam() {
-  saveAnswer();
+  saveAnswer();
+  
+  // إذا كان هذا هو القسم الأخير، قم بحفظ نتائجه أولاً
+  if (mode === "real" && section === totalSections) {
+      const sectionSummary = calculateSectionSummary(questions);
+      let allResults = JSON.parse(localStorage.getItem(SECTION_RESULTS_KEY) || '[]');
+      allResults.push({ 
+          section: section, 
+          summary: sectionSummary, 
+          questions: questions 
+      });
+      localStorage.setItem(SECTION_RESULTS_KEY, JSON.stringify(allResults));
+  }
+  
+  // 1. تجميع النتائج من جميع الأقسام المحفوظة
+  const allResults = JSON.parse(localStorage.getItem(SECTION_RESULTS_KEY) || '[]');
+  let totalScore = 0;
+  let totalCorrect = 0;
+  let totalIncorrect = 0;
+  let totalUnattempted = 0;
+  let allReviewQuestions = [];
 
-  // 1. حساب الدرجات وتجميع الأخطاء
-  let score = 0;
-  let correctCount = 0;
-  let incorrectCount = 0;
-  let unattemptedCount = 0;
-  let reviewQuestions = [];
-
-  
-  questions.forEach(q => {
-    if (q.answer !== null) {
-      if (q.answer === q.correct) {
-        correctCount++;
-        score += q.value || 0; 
-      } else {
-        incorrectCount++;
-        reviewQuestions.push(q);
-      }
-    } else {
-      unattemptedCount++;
-      reviewQuestions.push(q);
-    }
-  });
-
-  // 2. تخزين النتائج النهائية وقائمة المراجعة
-  localStorage.setItem("finalScore", score.toFixed(2));
-  localStorage.setItem("correctCount", correctCount);
-  localStorage.setItem("incorrectCount", incorrectCount);
-  localStorage.setItem("unattemptedCount", unattemptedCount);
-  localStorage.setItem("reviewQuestions", JSON.stringify(reviewQuestions));
-  
-  // تنظيف بيانات الجلسة
-  localStorage.removeItem("questions");
-  localStorage.removeItem("timeLeft");
-  
-  // 3. الانتقال لصفحة المراجعة (review.html)
-  window.location.href = "review.html";
+  allResults.forEach(res => {
+      totalScore += res.summary.score;
+      totalCorrect += res.summary.correctCount;
+      totalIncorrect += res.summary.incorrectCount;
+      totalUnattempted += res.summary.unattemptedCount;
+      // تجميع كل الأسئلة الخاطئة والمتروكة
+      allReviewQuestions = allReviewQuestions.concat(res.summary.reviewQuestions);
+  });
+  
+  // 2. تخزين النتائج النهائية وقائمة المراجعة الكلية
+  localStorage.setItem("finalScore", totalScore.toFixed(2));
+  localStorage.setItem("correctCount", totalCorrect);
+  localStorage.setItem("incorrectCount", totalIncorrect);
+  localStorage.setItem("unattemptedCount", totalUnattempted);
+  localStorage.setItem("reviewQuestions", JSON.stringify(allReviewQuestions));
+  
+  // تنظيف بيانات الجلسة وبدء الانتقال
+  localStorage.removeItem("questions");
+  localStorage.removeItem("timeLeft");
+  localStorage.removeItem(SECTION_RESULTS_KEY); // مسح التخزين التراكمي بعد التجميع
+  
+  // 3. الانتقال لصفحة المراجعة (review.html)
+  window.location.href = "review.html";
 }
 
 // ---------- عداد الوقت (Timer) ----------
