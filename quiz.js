@@ -1,7 +1,7 @@
 // =================================================================
 // قائمة الأسئلة الـ 120 (من ملف اختبار محاكي منصة جهاد)
-// **تم حذف السؤال ID 90 لضمان سلامة العرض.**
-// **تم حذف خاصية imageURL من السؤال 91 وما يليه بناءً على طلبك.**
+// **ملاحظة: السؤال ID 90 محذوف تمامًا من القائمة.**
+// **تم حذف خاصية imageURL من جميع أسئلة الهندسة والإحصاء والمقارنات (91-120).**
 // =================================================================
 const rawQuestionsData = [
     // المفردة الشاذة (1-7)
@@ -279,16 +279,8 @@ function findParagraphForQuestion(qId) {
 }
 
 /**
- * findQuestionById(qId)
- * - يجد السؤال الأصلي من القائمة الكلية.
- */
-function findQuestionById(qId) {
-    return rawQuestionsData.find(q => q.id === qId);
-}
-
-/**
  * normalizeText(raw)
- * - يصحح عرض الرموز الرياضية والدرجات.
+ * - يصحح عرض الرموز الرياضية والدرجات (مثل $...$).
  */
 function normalizeText(raw) {
   if (!raw && raw !== "") return "";
@@ -321,7 +313,7 @@ if (savedQuestions) {
     }));
   } else if (mode === "real") {
     // المحاكي الواقعي: تقسيم الأسئلة المفلترة على 5 أقسام
-    const questionsPerSection = Math.floor(filteredQuestions.length / totalSections); // 119/5 = 23 سؤال + 4 أسئلة (24 * 4 + 23)
+    const questionsPerSection = Math.floor(filteredQuestions.length / totalSections); 
     const startIndex = (section - 1) * questionsPerSection;
     let endIndex = startIndex + questionsPerSection;
     
@@ -525,15 +517,14 @@ function endSection() {
 // ---------- إنهاء الامتحان: حساب الدرجات + تخزين النتائج ----------
 function finishExam() {
   saveAnswer();
-  
+
   // 1. حساب الدرجات وتجميع الأخطاء
   let score = 0;
   let correctCount = 0;
   let incorrectCount = 0;
   let unattemptedCount = 0;
   let reviewQuestions = [];
-  
-  // نجمع الأسئلة من كل الأقسام السابقة أيضًا إذا كان الاختبار واقعيًا (افتراضيًا نركز على القسم الحالي)
+
   
   questions.forEach(q => {
     if (q.answer !== null) {
