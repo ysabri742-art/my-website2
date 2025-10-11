@@ -92,7 +92,7 @@ let allQuestions = [
    
     { id: 64, text: "أوجد قيمة المقدار: (1/3) + (1/2 * 1/3) – (1/6) - (1/3)", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, header: "الجبر والحساب" },
     { id: 65, text: "بطاقات مرقمة من 1 إلى 99، فما احتمال سحب بطاقة مجموع رقميها أكبر من 11؟", options: ["10/99", "11/99", "27/99", "28/99"], answer: null, marked: false, correct: 3 },
-    { id: 66, text: "999^6 – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 2 },
+    { id: 66, text: "999^2 – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 2 },
     { id: 67, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1 },
     { id: 68, text: "ما قيمة المقدار تقريباً: 10 / (جذر 30 * جذر 10)", options: ["1/جذر3", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0 },
     { id: 69, text: "ما نصف العدد 2^50", options: ["2^62", "2^52", "2^49", "2^51"], answer: null, marked: false, correct: 2 },
