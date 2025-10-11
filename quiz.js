@@ -112,22 +112,22 @@ let allQuestions = [
     { id: 86, text: "العبارة 'من شغل نفسه بعيوب غيره كثرت عيوبه' تعني:", options: ["الذي يركز على عيوب الناس يزيد من عيوبه", "الذي يرى عيوبه يقلل منها", "الذي يركز على عيوب الناس لا يهتم بعيوبه", "كل ما سبق"], answer: null, marked: false, correct: 0 },
     { id: 87, text: "تستطيع حشرة السمك التغذي على أغلفة الكتب لأنها:", options: ["مصنوعة من القماش", "مصنوعة من الورق", "تحتوي على السكريات", "غير نظيفة"], answer: null, marked: false, correct: 1 },
     { id: 88, text: "ما الفرق الرئيسي في شكل طفح الجدري والجديري؟", options: ["اللون", "الحجم", "مكان الظهور ووقت التحول", "مدة العلاج"], answer: null, marked: false, correct: 2 },
-    { id: 89, text: "أوجد قيمة المقدار: $\\frac{1}{3} + (\\frac{1}{2} \\times \\frac{1}{3}) – \\frac{1}{6} - \\frac{1}{3}$", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, header: "الجبر والحساب" },
+    { id: 89, text: "أوجد قيمة المقدار: $$\\frac{1}{3} + (\\frac{1}{2} \\times \\frac{1}{3}) – \\frac{1}{6} - \\frac{1}{3}$$", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, header: "الجبر والحساب" },
     { id: 90, text: "بطاقات مرقمة من 1 إلى 99، فما احتمال سحب بطاقة مجموع رقميها أكبر من 11؟", options: ["10/99", "11/99", "27/99", "28/99"], answer: null, marked: false, correct: 3 },
     { id: 91, text: "$10^6 – 1 = .....$", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 2 },
     { id: 92, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1 },
-    { id: 93, text: "ما قيمة المقدار تقريباً: $\\frac{10}{\\sqrt{30} \\times \\sqrt{10}}$", options: ["1/\\sqrt{3}", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0 },
-    { id: 94, text: "ما نصف العدد $2^{50}$", options: ["$2^{62}$", "$2^{52}$", "$2^{49}$", "$2^{51}$"], answer: null, marked: false, correct: 2 },
-    { id: 95, text: "إذا كان $2^n + 2^n + 2^n +2^n = 8^2$ فما قيمة $n$؟", options: ["2", "8", "4", "6"], answer: null, marked: false, correct: 2 },
-    { id: 96, text: "أوجد قيمة المقدار: $\\frac{18 \\times 32}{16 \\times 9}$", options: ["1", "2", "4", "6"], answer: null, marked: false, correct: 2 },
+    { id: 93, text: "ما قيمة المقدار تقريباً: $$\\frac{10}{\\sqrt{30} \\times \\sqrt{10}}$$", options: ["1/\\sqrt{3}", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0 },
+    { id: 94, text: "ما نصف العدد $$2^{50}$$", options: ["$2^{62}$", "$2^{52}$", "$2^{49}$", "$2^{51}$"], answer: null, marked: false, correct: 2 },
+    { id: 95, text: "إذا كان $$2^n + 2^n + 2^n +2^n = 8^2$$ فما قيمة $$n$$؟", options: ["2", "8", "4", "6"], answer: null, marked: false, correct: 2 },
+    { id: 96, text: "أوجد قيمة المقدار: $$\\frac{18 \\times 32}{16 \\times 9}$$", options: ["1", "2", "4", "6"], answer: null, marked: false, correct: 2 },
     { id: 97, text: "شخص عمره 4.15 سنة، فعمره تقريبًا 4 سنوات و .....", options: ["شهر و28 يوم", "ثلاثة أشهر", "15 يوم", "شهر و 24 يوم"], answer: null, marked: false, correct: 3 },
     { id: 98, text: "أوجد قيمة: 4% من 100", options: ["4", "3.96", "3.92", "3.84"], answer: null, marked: false, correct: 0 },
-    { id: 99, text: "أوجد قيمة: $\\frac{4}{10} / \\frac{9}{10}$", options: ["4/10", "5/10", "4/9", "5/9"], answer: null, marked: false, correct: 2 },
+    { id: 99, text: "أوجد قيمة: $$\\frac{4}{10} / \\frac{9}{10}$$", options: ["4/10", "5/10", "4/9", "5/9"], answer: null, marked: false, correct: 2 },
 
     // القسم 5 (100-124) - يبدأ من هنا
-    { id: 100, text: "ما قيمة $(51)^2 – (49)^2$", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, header: "الجبر والحساب - تكرار" },
-    { id: 101, text: "إذا كان $أ – ب = ٥$، $ب – ج = ٣$، $ج + د = ١$، أوجد $أ + د$", options: ["1", "8", "9", "4"], answer: null, marked: false, correct: 2 },
-    { id: 102, text: "أوجد قيمة المقدار: $\\frac{2^7 + 2^7}{2^7 + 2^7 + 2^7 + 2^7}$", options: ["1/4", "1/2", "1/8", "1/16"], answer: null, marked: false, correct: 1 },
+    { id: 100, text: "ما قيمة $$(51)^2 – (49)^2$$", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, header: "الجبر والحساب - تكرار" },
+    { id: 101, text: "إذا كان $$أ - ب = ٥$$، و $$ب - ج = ٣$$، و $$ج + د = ١$$، أوجد قيمة $$أ + د$$", options: ["1", "8", "9", "4"], answer: null, marked: false, correct: 2 },
+    { id: 102, text: "أوجد قيمة المقدار: $$\\frac{2^7 + 2^7}{2^7 + 2^7 + 2^7 + 2^7}$$", options: ["1/4", "1/2", "1/8", "1/16"], answer: null, marked: false, correct: 1 },
     { id: 103, text: "أوجد الحد التالي: 3، 7، 9، 15، .........", options: ["19", "21", "23", "25"], answer: null, marked: false, correct: 2 },
     
     // المسائل المقالية (104-110)
@@ -140,16 +140,16 @@ let allQuestions = [
     { id: 110, text: "اشترى تاجر سلعة بـ 90، يبيع بربح 50%، خصم نقدي 30%. فما نسبة ربح التاجر إذا باع نقداً؟", options: ["5%", "10%", "20%", "30%"], answer: null, marked: false, correct: 0 },
 
     // الهندسة (111-122)
-    { id: 111, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["$230^{\\circ}$", "$130^{\\circ}$", "$270^{\\circ}$", "$115^{\\circ}$"], answer: null, marked: false, correct: 0, header: "الهندسة" },
-    { id: 112, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2 },
-    { id: 113, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة $80^{\\circ}$).", options: ["$80^{\\circ}$", "$100^{\\circ}$", "$110^{\\circ}$", "$120^{\\circ}$"], answer: null, marked: false, correct: 1 },
+    { id: 111, text: "في شكل شبه منحرف، أوجد $س + ص$ (زاويتان خارجيتان).", options: ["$230^{\\circ}$", "$130^{\\circ}$", "$270^{\\circ}$", "$115^{\\circ}$"], answer: null, marked: false, correct: 0, header: "الهندسة" },
+    { id: 112, text: "في الشكل المجاور أوجد طول $أ ج$: ($أ ب = 7$، $ب د = 4$، $د ج = 4$).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2 },
+    { id: 113, text: "في شكل رباعي دائري، أوجد قيمة $س$ (الزاوية المقابلة $80^{\\circ}$).", options: ["$80^{\\circ}$", "$100^{\\circ}$", "$110^{\\circ}$", "$120^{\\circ}$"], answer: null, marked: false, correct: 1 },
     { id: 114, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2 },
-    { id: 115, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["$25\\pi$", "$50\\pi$", "$100\\pi$", "$125\\pi$"], answer: null, marked: false, correct: 2 },
+    { id: 115, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["$$25\\pi$$", "$$50\\pi$$", "$$100\\pi$$", "$$125\\pi$$"], answer: null, marked: false, correct: 2 },
     { id: 116, text: "كم عدد المثلثات في الشكل (مستطيل داخله مربع مقسوم بقطرين).", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 },
     { id: 117, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 },
-    { id: 118, text: "أوجد مثلي س + ص (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3 },
-    { id: 119, text: "ما قياس الزاوية س؟", options: ["$60^{\\circ}$", "$120^{\\circ}$", "$140^{\\circ}$", "$100^{\\circ}$"], answer: null, marked: false, correct: 1 },
-    { id: 120, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3 },
+    { id: 118, text: "أوجد مثلي $س + ص$ (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3 },
+    { id: 119, text: "ما قياس الزاوية $س$؟", options: ["$60^{\\circ}$", "$120^{\\circ}$", "$140^{\\circ}$", "$100^{\\circ}$"], answer: null, marked: false, correct: 1 },
+    { id: 120, text: "ما نوع المثلث؟ (أضلاعه $4س$، $3س$، $2س$).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3 },
     { id: 121, text: "ما متوسط الإيرادات للأعوام الأربعة؟ ($8+12+10+16$).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 },
     { id: 122, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1 },
 
@@ -190,7 +190,7 @@ function updateQuestion() {
       sectionTitleElement.innerHTML += `<h3 style="color: #023e8a; margin-top: 10px;">${q.header}</h3>`;
   }
 
-  // 4. عرض الفقرة الطويلة (Paragraph)
+  // 4. عرض الفقرة الطويلة (Paragraph) في العنصر المخصص لها
   const prevParagraph = currentIndex > 0 ? questions[currentIndex - 1].paragraph : null;
   if (q.paragraph) {
       if (q.paragraph !== prevParagraph) {
@@ -207,9 +207,9 @@ function updateQuestion() {
   // 5. عرض رقم السؤال
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 6. عرض نص السؤال والخيارات
+  // 6. عرض نص السؤال والخيارات كـ innerHTML (مهم لـ MathJax)
   // ** نعتمد هنا على MathJax لتنسيق الرموز الرياضية **
-  document.getElementById("question-text").textContent = q.text;
+  document.getElementById("question-text").innerHTML = q.text;
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
@@ -230,7 +230,8 @@ function updateQuestion() {
 
   // 8. إعادة تهيئة MathJax لعرض الرموز الرياضية الجديدة
   if (window.MathJax) {
-      MathJax.typeset();
+      // نطلب من MathJax معالجة العناصر التي تم تحديثها
+      MathJax.typesetPromise([document.getElementById("question-box"), document.getElementById("answers")]);
   }
 }
 
