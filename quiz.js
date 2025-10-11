@@ -4,16 +4,13 @@ let totalSections = parseInt(localStorage.getItem("totalSections") || "1");
 let currentIndex = 0;
 let timeLeft = 25 * 60; // 25 دقيقة لكل قسم
 
-// **التوزيع المطلوب:** 5 أقسام * 24 سؤال = 120 سؤال
+// **التزام صارم:** 5 أقسام * 24 سؤال = 120 سؤال
 const QUESTIONS_PER_SECTION = 24;
-const totalSectionsCount = 5; // نستخدم 5 أقسام ثابتة للواقعي
+const sectionStarts = [0, 24, 48, 72, 96]; // بدايات الأقسام الجديدة
 
-const VERBAL_PER_SECTION = 13;
-const QUANT_PER_SECTION = 11;
-
-// مصفوفة الأسئلة (120 سؤال) - تم تعديلها لتضمين روابط الصور الجديدة
-const RAW_ALL_QUESTIONS = [
-    // القسم 1: 24 سؤال (0-23)
+// مصفوفة الأسئلة (120 سؤال لتغطية 5 أقسام)
+let allQuestions = [
+    // القسم 1 (0-23) - 24 سؤال
     { id: 1, text: "أوجد المفردة الشاذة:", options: ["ثمار", "حبوب", "حصاد", "فواكه"], answer: null, marked: false, correct: 2, header: "المفردة الشاذة" },
     { id: 2, text: "أوجد المفردة الشاذة:", options: ["شمس", "قمر", "نور", "الإضاءة"], answer: null, marked: false, correct: 3 },
     { id: 3, text: "أوجد المفردة الشاذة:", options: ["مسك", "نعناع", "فل", "ياسمين"], answer: null, marked: false, correct: 0 },
@@ -21,7 +18,7 @@ const RAW_ALL_QUESTIONS = [
     { id: 5, text: "أوجد المفردة الشاذة:", options: ["رغبة", "رهبة", "خشية", "فزع"], answer: null, marked: false, correct: 0 },
     { id: 6, text: "أوجد المفردة الشاذة:", options: ["كسور", "كدمات", "جروح", "كمادات"], answer: null, marked: false, correct: 3 },
     { id: 7, text: "أوجد المفردة الشاذة:", options: ["أفقي", "عمودي", "رأسي", "مائل"], answer: null, marked: false, correct: 3 },
-    { id: 8, text: "سوريا : دمشق", options: ["فلسطين : غزة", "مصر : الإسكندرية", "المغرب : الرباط", "لبنان : طرابلس"], answer: null, marked: false, correct: 2, header: "التناظر اللفظي" },
+    { id: 8, text: "سوريا : دمشق (دولة : عاصمة)", options: ["فلسطين : غزة", "مصر : الإسكندرية", "المغرب : الرباط", "لبنان : طرابلس"], answer: null, marked: false, correct: 2, header: "التناظر اللفظي" },
     { id: 9, text: "مغزل : مقص (أدوات عمل)", options: ["جزار : منجرة", "معلم : مسطرة", "دراجة : عجلة", "منشار : مسمار"], answer: null, marked: false, correct: 3 },
     { id: 10, text: "ورد : عطر (مصدر : ناتج)", options: ["زهرة : لون", "إنفاق : إسراف", "رمل : زجاج", "خزان : ماء"], answer: null, marked: false, correct: 2 },
     { id: 11, text: "وعاء : قدر (مرادفات)", options: ["أواني : نحاس", "شاحنة : سيارة", "صحن : دلو", "زنجبيل : بهار"], answer: null, marked: false, correct: 2 },
@@ -140,20 +137,20 @@ const RAW_ALL_QUESTIONS = [
     { id: 107, text: "اشترى تاجر سلعة بـ 90، يبيع بربح 50%، خصم نقدي 30%. فما نسبة ربح التاجر إذا باع نقداً؟", options: ["5%", "10%", "20%", "30%"], answer: null, marked: false, correct: 0 },
 
     // الهندسة
-    { id: 108, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة", imageURL: "images/q108.png" },
-    { id: 109, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2, imageURL: "images/q109.png" },
-    { id: 110, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة 80 درجة).", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1, imageURL: "images/q110.png" },
-    { id: 111, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2, imageURL: "images/q111.png" },
-    { id: 112, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 2, imageURL: "images/q112.png" },
-    { id: 113, text: "كم عدد المثلثات في الشكل (مستطيل داخله مربع مقسوم بقطرين).", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3, imageURL: "images/q113.png" },
-    { id: 114, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2, imageURL: "images/q114.png" },
-    { id: 115, text: "أوجد مثلي س + ص (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3, imageURL: "images/q115.png" },
-    { id: 116, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 1, imageURL: "images/q116.png" },
-    { id: 117, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3, imageURL: "images/q117.png" },
-    { id: 118, text: "ما متوسط الإيرادات للأعوام الأربعة؟ (8+12+10+16).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0, imageURL: "images/q118.png" },
+    { id: 108, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة" },
+    { id: 109, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2 },
+    { id: 110, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة 80 درجة).", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1 },
+    { id: 111, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2 },
+    { id: 112, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 2 },
+    { id: 113, text: "كم عدد المثلثات في الشكل (مستطيل داخله مربع مقسوم بقطرين).", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 },
+    { id: 114, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 },
+    { id: 115, text: "أوجد مثلي س + ص (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3 },
+    { id: 116, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 1 },
+    { id: 117, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3 },
+    { id: 118, text: "ما متوسط الإيرادات للأعوام الأربعة؟ (8+12+10+16).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 },
     
     // أسئلة المقارنة (تغطي باقي الأسئلة حتى 120)
-    { id: 119, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة", imageURL: "images/q119.png" },
+    { id: 119, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة" },
     { id: 120, text: "قارن بين: القيمة الأولى: 9 – 0.0044، القيمة الثانية: 9 – 0.00044", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 },
 ];
 
@@ -169,7 +166,6 @@ function updateQuestion() {
   const q = questions[currentIndex];
   const sectionTitleElement = document.getElementById("section-title");
   const paragraphBoxElement = document.getElementById("paragraph-box");
-  const questionTextElement = document.getElementById("question-text");
   const submitBtn = document.getElementById("submit-section-btn");
 
   // 1. تحديد عنوان القسم الرئيسي
@@ -206,14 +202,8 @@ function updateQuestion() {
   // 5. عرض رقم السؤال
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 6. عرض نص السؤال والصورة
-  let questionContent = '';
-  if (q.imageURL) {
-      // نضع الصورة قبل نص السؤال
-      questionContent += `<img src="${q.imageURL}" alt="شكل توضيحي للسؤال" style="max-width: 100%; height: auto; display: block; margin: 15px auto;">`;
-  }
-  questionContent += q.text; 
-  questionTextElement.innerHTML = questionContent; // استخدام innerHTML لعرض الصورة والنص
+  // 6. عرض نص السؤال والخيارات كـ innerHTML
+  document.getElementById("question-text").textContent = q.text;
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
