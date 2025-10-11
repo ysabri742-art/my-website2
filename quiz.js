@@ -162,14 +162,11 @@ let allQuestions = [
 // تحديد الأسئلة الخاصة بالقسم الحالي فقط
 let questions = allQuestions.slice(sectionStarts[currentSection - 1], sectionStarts[currentSection - 1] + QUESTIONS_PER_SECTION);
 
-// دالة تنسيق النص (للكسور والجذور)
-function formatText(text) {
-  return text.replace(/(\\frac{([^{}]+)}{([^{}]+)})/g, (match, p1, numerator, denominator) => {
-      return `<span style="font-size: 1.2em; vertical-align: middle;">${numerator}&frasl;${denominator}</span>`;
-  })
-  .replace(/\\sqrt{([^{}]+)}/g, (match, p1) => `&radic;<span style="text-decoration:overline">${p1}</span>`);
-}
-
+/*
+ * ============================================
+ * دالة updateQuestion (القلب النابض للعرض)
+ * ============================================
+ */
 function updateQuestion() {
   const q = questions[currentIndex];
   const sectionTitleElement = document.getElementById("section-title");
@@ -193,7 +190,7 @@ function updateQuestion() {
       sectionTitleElement.innerHTML += `<h3 style="color: #023e8a; margin-top: 10px;">${q.header}</h3>`;
   }
 
-  // 4. عرض الفقرة الطويلة (Paragraph) في العنصر المخصص لها
+  // 4. عرض الفقرة الطويلة (Paragraph)
   const prevParagraph = currentIndex > 0 ? questions[currentIndex - 1].paragraph : null;
   if (q.paragraph) {
       if (q.paragraph !== prevParagraph) {
@@ -210,13 +207,14 @@ function updateQuestion() {
   // 5. عرض رقم السؤال
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 6. عرض نص السؤال وتنسيق الكسور
-  document.getElementById("question-text").innerHTML = formatText(q.text);
+  // 6. عرض نص السؤال والخيارات
+  // ** نعتمد هنا على MathJax لتنسيق الرموز الرياضية **
+  document.getElementById("question-text").textContent = q.text;
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
     if (opt) {
-        answersHTML += `<label><input type="radio" name="answer" value="${i}" ${q.answer === i ? "checked" : ""}> ${formatText(opt)}</label>`;
+        answersHTML += `<label><input type="radio" name="answer" value="${i}" ${q.answer === i ? "checked" : ""}> ${opt}</label>`;
     }
   });
   document.getElementById("answers").innerHTML = answersHTML;
@@ -228,6 +226,11 @@ function updateQuestion() {
   } else {
       submitBtn.textContent = `🏁 إنهاء الامتحان`;
       submitBtn.onclick = finishExam; // القسم الأخير ينهي الامتحان مباشرة
+  }
+
+  // 8. إعادة تهيئة MathJax لعرض الرموز الرياضية الجديدة
+  if (window.MathJax) {
+      MathJax.typeset();
   }
 }
 
@@ -281,6 +284,21 @@ function reviewSection() {
     
   // استبدال محتوى الجسم بشاشة المراجعة
   document.body.innerHTML = html;
+}
+
+function goTo(index) {
+  saveAnswer();
+  // حفظ حالة القسم قبل الانتقال
+  localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
+  // إعادة توجيه مع تحديد السؤال المراد الرجوع إليه
+  window.location.href = `quiz.html?section=${currentSection}&returnTo=${index}`;
+}
+
+function chooseQuestion() {
+  let num = prompt("أدخل رقم السؤال:");
+  if (num && !isNaN(num) && num >= 1 && num <= questions.length) {
+    goTo(parseInt(num) - 1);
+  }
 }
 
 function endSection() {
