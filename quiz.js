@@ -4,13 +4,16 @@ let totalSections = parseInt(localStorage.getItem("totalSections") || "1");
 let currentIndex = 0;
 let timeLeft = 25 * 60; // 25 دقيقة لكل قسم
 
-// **التزام صارم:** 5 أقسام * 24 سؤال = 120 سؤال
+// **التوزيع المطلوب:** 5 أقسام * 24 سؤال = 120 سؤال
 const QUESTIONS_PER_SECTION = 24;
-const sectionStarts = [0, 24, 48, 72, 96]; 
+const totalSectionsCount = 5; // نستخدم 5 أقسام ثابتة للواقعي
 
-// مصفوفة الأسئلة (120 سؤال لتغطية 5 أقسام)
-let allQuestions = [
-    // القسم 1 (0-23) - 24 سؤال
+const VERBAL_PER_SECTION = 13;
+const QUANT_PER_SECTION = 11;
+
+// مصفوفة الأسئلة (120 سؤال) - تم تعديلها لتضمين روابط الصور الجديدة
+const RAW_ALL_QUESTIONS = [
+    // القسم 1: 24 سؤال (0-23)
     { id: 1, text: "أوجد المفردة الشاذة:", options: ["ثمار", "حبوب", "حصاد", "فواكه"], answer: null, marked: false, correct: 2, header: "المفردة الشاذة" },
     { id: 2, text: "أوجد المفردة الشاذة:", options: ["شمس", "قمر", "نور", "الإضاءة"], answer: null, marked: false, correct: 3 },
     { id: 3, text: "أوجد المفردة الشاذة:", options: ["مسك", "نعناع", "فل", "ياسمين"], answer: null, marked: false, correct: 0 },
@@ -18,7 +21,7 @@ let allQuestions = [
     { id: 5, text: "أوجد المفردة الشاذة:", options: ["رغبة", "رهبة", "خشية", "فزع"], answer: null, marked: false, correct: 0 },
     { id: 6, text: "أوجد المفردة الشاذة:", options: ["كسور", "كدمات", "جروح", "كمادات"], answer: null, marked: false, correct: 3 },
     { id: 7, text: "أوجد المفردة الشاذة:", options: ["أفقي", "عمودي", "رأسي", "مائل"], answer: null, marked: false, correct: 3 },
-    { id: 8, text: "سوريا : دمشق (دولة : عاصمة)", options: ["فلسطين : غزة", "مصر : الإسكندرية", "المغرب : الرباط", "لبنان : طرابلس"], answer: null, marked: false, correct: 2, header: "التناظر اللفظي" },
+    { id: 8, text: "سوريا : دمشق", options: ["فلسطين : غزة", "مصر : الإسكندرية", "المغرب : الرباط", "لبنان : طرابلس"], answer: null, marked: false, correct: 2, header: "التناظر اللفظي" },
     { id: 9, text: "مغزل : مقص (أدوات عمل)", options: ["جزار : منجرة", "معلم : مسطرة", "دراجة : عجلة", "منشار : مسمار"], answer: null, marked: false, correct: 3 },
     { id: 10, text: "ورد : عطر (مصدر : ناتج)", options: ["زهرة : لون", "إنفاق : إسراف", "رمل : زجاج", "خزان : ماء"], answer: null, marked: false, correct: 2 },
     { id: 11, text: "وعاء : قدر (مرادفات)", options: ["أواني : نحاس", "شاحنة : سيارة", "صحن : دلو", "زنجبيل : بهار"], answer: null, marked: false, correct: 2 },
@@ -36,7 +39,7 @@ let allQuestions = [
     { id: 23, text: "سأل الممكن الأمل أين تقيم، فأجاب في أحلام العاجز", options: ["الأمل", "يقيم", "أحلام", "العاجز"], answer: null, marked: false, correct: 0 },
     { id: 24, text: "كل شيء إذا قل رخص إلا العلم إذا كثر غلا", options: ["قل", "رخص", "العلم", "غلا"], answer: null, marked: false, correct: 0 },
 
-    // القسم 2 (24-47) - استيعاب مقروء (24 سؤال)
+    // القسم 2 (24-47) - 24 سؤال
     { id: 25, text: "يتعدل مجموع معدلي الحضانة الجدري والجديري من:", options: ["7 إلى 14 يوم", "14 إلى 21 يوم", "26 إلى 33 يوم", "من 1 إلى 7 أيام"], answer: null, marked: false, correct: 2, header: "استيعاب المقروء - الجدري والجديري", 
       paragraph: "الجديري مرض ينشأ عن فيروس يختلف عن فيروس الجدري، ولذلك يسمى بالجدري الكاذب، ويكثر بين الأطفال، ونسبة وفياته قليلة بالنسبة إلى وفيات الجدري، ومدة حضانته أطول، فهي اسبوعان أو ثلاثة، بينما في الجدري هي اثنا عشر يومًا، ويبدأ المرض بتوعك بسيط مع ارتفاع قليل في درجة الحرارة، وبعد أربع وعشرين ساعة يظهر الطفح الخاص بالمرض على شكل حليمات تتحول في مدة ساعة أو اثنتين إلى حويصلات، ويمكن التفريق بين طفح الجديري وطفح الجدري بتأخر ظهور الأول حتى اليوم الثالث أو الرابع، وظهور الثاني في اليوم الاول، ويظهر طفح الجدري أولاً على الوجه، أما طفح الجديري فيظهر على الجذع، وتنتقل عدوى الجديري بواسطة الرذاذ الخارج من المسالك التنفسية العليا للمرضى." },
     { id: 26, text: "مرض الجديري يعد:", options: ["مرض جلدي", "مرض تناسلي", "مرض جذعي", "مرض باطني"], answer: null, marked: false, correct: 0 },
@@ -67,7 +70,7 @@ let allQuestions = [
       paragraph: "كم من شجاع غلب الناس بشجاعته وهزمهم بإقدامه!" },
     { id: 47, text: "ما الكلمة التي لا يمكن حذفها من النص السابق (الشجاعة)", options: ["بشجاعته", "الناس", "بإقدامه", "شجاع"], answer: null, marked: false, correct: 3 },
 
-    // القسم 3 (48-71) - استيعاب مقروء (24 سؤال)
+    // القسم 3 (48-71) - 24 سؤال
     { id: 48, text: "ما الكلمة التي يمكن حذفها من النص السابق ويستقيم المعنى (الشجاعة)", options: ["بشجاعته", "كم", "غلب", "هزمهم"], answer: null, marked: false, correct: 0 },
     { id: 49, text: "ما علاقة 'وهزمهم بإقدامه' بما قبلها؟", options: ["سبب", "توضيح", "توكيد", "نتيجة"], answer: null, marked: false, correct: 2, header: "مرادف إقدامه" },
     { id: 50, text: "الضمير في 'هزمهم' يعود:", options: ["من", "شجاع", "الناس", "الأعداء"], answer: null, marked: false, correct: 2 },
@@ -94,7 +97,7 @@ let allQuestions = [
     { id: 70, text: "ما اسم الأحذية التي صنعها الرومان؟", options: ["كالسيوس", "صندل", "حذوة", "لبادات"], answer: null, marked: false, correct: 0 },
     { id: 71, text: "كم شقًا كانت للأحذية الرومانية؟", options: ["4", "6", "8", "10"], answer: null, marked: false, correct: 2 },
 
-    // القسم 4 (72-95) - استيعاب مقروء وجبر وحساب (24 سؤال)
+    // القسم 4 (72-95) - 24 سؤال
     { id: 72, text: "متى بدأ الإنجليز في صناعة الأحذية بفردة يمين وأخرى يسار؟", options: ["قبل الرومان", "بعد الرومان", "قبل المصريين", "في نفس عصر المصريين"], answer: null, marked: false, correct: 1, header: "استيعاب المقروء - تكرار" },
     { id: 73, text: "في أي وقت بدأ التنقيب عن الزيت على نطاق واسع؟", options: ["النصف الأول من ق19", "قبل نهاية النصف الأول من ق19", "القرن 20", "قبل القرن 18"], answer: null, marked: false, correct: 1 },
     { id: 74, text: "ما المادة التي لا يتوافق النص معها؟", options: ["الإسفلت", "البنزين", "الكيروسين", "الفحم"], answer: null, marked: false, correct: 3 },
@@ -120,7 +123,7 @@ let allQuestions = [
     { id: 94, text: "أوجد قيمة المقدار: (18 * 32) / (16 * 9)", options: ["1", "2", "4", "6"], answer: null, marked: false, correct: 2 },
     { id: 95, text: "شخص عمره 4.15 سنة، فعمره تقريبًا 4 سنوات و .....", options: ["شهر و28 يوم", "ثلاثة أشهر", "15 يوم", "شهر و 24 يوم"], answer: null, marked: false, correct: 3 },
 
-    // القسم 5 (96-119) - جبر وحساب ومقارنة وهندسة (24 سؤال)
+    // القسم 5 (96-119) - 24 سؤال
     { id: 96, text: "أوجد قيمة: 4% من 100", options: ["4", "3.96", "3.92", "3.84"], answer: null, marked: false, correct: 0 },
     { id: 97, text: "أوجد قيمة: (4/10) / (9/10)", options: ["4/10", "5/10", "4/9", "5/9"], answer: null, marked: false, correct: 2 },
     { id: 98, text: "ما قيمة (51)^2 – (49)^2", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, header: "الجبر والحساب - تكرار" },
@@ -137,23 +140,21 @@ let allQuestions = [
     { id: 107, text: "اشترى تاجر سلعة بـ 90، يبيع بربح 50%، خصم نقدي 30%. فما نسبة ربح التاجر إذا باع نقداً؟", options: ["5%", "10%", "20%", "30%"], answer: null, marked: false, correct: 0 },
 
     // الهندسة
-    { id: 108, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة" },
-    { id: 109, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2 },
-    { id: 110, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة 80 درجة).", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1 },
-    { id: 111, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2 },
-    { id: 112, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 2 },
-    { id: 113, text: "كم عدد المثلثات في الشكل (مستطيل داخله مربع مقسوم بقطرين).", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 },
-    { id: 114, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 },
-    { id: 115, text: "أوجد مثلي س + ص (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3 },
-    { id: 116, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 1 },
-    { id: 117, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3 },
-    { id: 118, text: "ما متوسط الإيرادات للأعوام الأربعة؟ (8+12+10+16).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 },
-    { id: 119, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1 },
-
-    // أسئلة المقارنة (120 - هو آخر سؤال في الترتيب الذي أرسلته)
-    { id: 120, text: "قارن بين: القيمة الأولى: 9 – 0.0044، القيمة الثانية: 9 – 0.00044", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة" },
+    { id: 108, text: "في شكل شبه منحرف، أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة", imageURL: "images/q108.png" },
+    { id: 109, text: "في الشكل المجاور أوجد طول أ ج: (أ ب = 7، ب د = 4، د ج = 4).", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2, imageURL: "images/q109.png" },
+    { id: 110, text: "في شكل رباعي دائري، أوجد قيمة س (الزاوية المقابلة 80 درجة).", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1, imageURL: "images/q110.png" },
+    { id: 111, text: "أحسب محيط الشكل التالي (مكون من مربعين أضلاعهما 3 و 4).", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2, imageURL: "images/q111.png" },
+    { id: 112, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل (4 أرباع دائرة).", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 2, imageURL: "images/q112.png" },
+    { id: 113, text: "كم عدد المثلثات في الشكل (مستطيل داخله مربع مقسوم بقطرين).", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3, imageURL: "images/q113.png" },
+    { id: 114, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2, imageURL: "images/q114.png" },
+    { id: 115, text: "أوجد مثلي س + ص (زاويتان حادتان في مثلث قائم).", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3, imageURL: "images/q115.png" },
+    { id: 116, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 1, imageURL: "images/q116.png" },
+    { id: 117, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 3, imageURL: "images/q117.png" },
+    { id: 118, text: "ما متوسط الإيرادات للأعوام الأربعة؟ (8+12+10+16).", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0, imageURL: "images/q118.png" },
     
-    // ملاحظة: تم حذف الأسئلة التي كانت بعد هذا الحد (121, 122, إلخ) للالتزام بالـ 120 سؤالًا.
+    // أسئلة المقارنة (تغطي باقي الأسئلة حتى 120)
+    { id: 119, text: "كم عدد المستطيلات في الشكل (مستطيل مقسم إلى 5 أقسام طولية).", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة", imageURL: "images/q119.png" },
+    { id: 120, text: "قارن بين: القيمة الأولى: 9 – 0.0044، القيمة الثانية: 9 – 0.00044", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 },
 ];
 
 // تحديد الأسئلة الخاصة بالقسم الحالي فقط
@@ -168,6 +169,7 @@ function updateQuestion() {
   const q = questions[currentIndex];
   const sectionTitleElement = document.getElementById("section-title");
   const paragraphBoxElement = document.getElementById("paragraph-box");
+  const questionTextElement = document.getElementById("question-text");
   const submitBtn = document.getElementById("submit-section-btn");
 
   // 1. تحديد عنوان القسم الرئيسي
@@ -204,8 +206,14 @@ function updateQuestion() {
   // 5. عرض رقم السؤال
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 6. عرض نص السؤال والخيارات كـ innerHTML
-  document.getElementById("question-text").textContent = q.text;
+  // 6. عرض نص السؤال والصورة
+  let questionContent = '';
+  if (q.imageURL) {
+      // نضع الصورة قبل نص السؤال
+      questionContent += `<img src="${q.imageURL}" alt="شكل توضيحي للسؤال" style="max-width: 100%; height: auto; display: block; margin: 15px auto;">`;
+  }
+  questionContent += q.text; 
+  questionTextElement.innerHTML = questionContent; // استخدام innerHTML لعرض الصورة والنص
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
