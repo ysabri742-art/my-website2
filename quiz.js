@@ -251,13 +251,11 @@ function updateQuestion() {
   document.getElementById("answers").innerHTML = answersHTML;
 
   // 7. تحديث نص زر التسليم/الإنهاء
-  if (currentSection < totalSections) {
-      submitBtn.textContent = `✅ تسليم القسم ${currentSection} والانتقال للتالي`;
-      submitBtn.onclick = endSection;
-  } else {
-      submitBtn.textContent = `🏁 إنهاء الامتحان`;
-      submitBtn.onclick = finishExam; // القسم الأخير ينهي الامتحان مباشرة
-  }
+if (currentIndex === questions.length - 1) {
+    submitBtn.style.display = "inline-block";
+} else {
+    submitBtn.style.display = "none";
+}
 }
 
 function saveAnswer() {
@@ -333,20 +331,26 @@ function chooseQuestion() {
 }
 
 function endSection() {
-    saveAnswer(); // لضمان حفظ آخر إجابة قبل التسليم
-    
-    // حفظ أسئلة القسم الحالي (للتأكيد، رغم أن saveAnswer يفعل ذلك)
+    saveAnswer();
+
+    // تحقق من أن جميع الأسئلة مجابة
+    const unanswered = questions.filter(q => q.answer === null);
+    if (unanswered.length > 0) {
+        alert(`⚠️ لا يمكنك تسليم القسم قبل الإجابة على جميع الأسئلة (${unanswered.length} سؤال غير مجاب).`);
+        return;
+    }
+
+    // حفظ القسم
     localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
 
     if (currentSection < totalSections) {
-        // الانتقال للقسم التالي
         localStorage.setItem("section", currentSection + 1);
         window.location.href = "quiz.html";
     } else {
-        // إنهاء الامتحان بالكامل (القسم الأخير)
         finishExam();
     }
 }
+
 
 function finishExam() {
   saveAnswer();
