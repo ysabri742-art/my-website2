@@ -201,6 +201,17 @@ body {
 #end-exam:hover {
   background-color: #c0392b;
 }
+/* ... (بقية ملف style.css) ... */
+
+/* تنسيق خاص بالصور الهندسية والرسوم البيانية داخل صندوق السؤال */
+#question-box img {
+    max-width: 100%; /* تضمن أن الصورة لا تتجاوز عرض حاويتها */
+    height: auto;    /* تحافظ على نسبة أبعاد الصورة */
+    display: block;  /* تضع الصورة في سطر منفصل */
+    margin: 15px auto; /* توسيط الصورة وإضافة هوامش */
+    border: 1px solid #ccc; /* إضافة إطار خفيف للوضوح */
+    border-radius: 8px; /* حواف دائرية بسيطة */
+}
 
 /* دعم الموبايل */
 @media (max-width: 600px) {
