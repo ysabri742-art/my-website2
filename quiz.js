@@ -376,13 +376,13 @@ function finishExam() {
       }
   }
 
-  const finalScore = (totalCorrectAnswers * 0.83).toFixed(2);
+ const finalScore = (totalCorrectAnswers * 0.83).toFixed(2);
   
   // تخزين تقرير الأخطاء المفصل
   localStorage.setItem("quizResults", JSON.stringify({
     score: finalScore,
     correct: totalCorrectAnswers,
-    total: totalQuestionsCount,
+    total: 120, // **تم تثبيت القيمة هنا لتجنب أي خطأ في الحساب**
     errors: errors,
     totalSections: totalSections
   }));
