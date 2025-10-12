@@ -192,6 +192,7 @@ function updateQuestion() {
   const q = questions[currentIndex];
   const sectionTitleElement = document.getElementById("section-title");
   const paragraphBoxElement = document.getElementById("paragraph-box");
+  const questionTextElement = document.getElementById("question-text"); // جلب العنصر بشكل صحيح
   const submitBtn = document.getElementById("submit-section-btn");
 
   // 1. تحديد عنوان القسم الرئيسي
@@ -228,19 +229,18 @@ function updateQuestion() {
   // 5. عرض رقم السؤال
   sectionTitleElement.innerHTML += `<p>السؤال ${currentIndex + 1} من ${questions.length}</p>`;
 
-  // 6. عرض نص السؤال والخيارات كـ innerHTML
-  document.getElementById("question-text").textContent = q.text;
-     if (q.imageURL || q.image) {
-    const img = document.createElement("img");
-    img.src = q.imageURL || q.image; // دعم أي من الخاصيتين
-    img.alt = "صورة السؤال";
-    img.style.maxWidth = "100%";
-    img.style.display = "block";
-    img.style.margin = "15px auto";
-    img.style.borderRadius = "12px";
-    img.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
-    questionTextElement.appendChild(img);
+  // 6. عرض نص السؤال والصورة (الإصلاح الحقيقي)
+  let questionContent = '';
+  const imageSource = q.imageURL || q.image; // استخدم أي خاصية تحمل رابط الصورة
+  
+  if (imageSource) {
+      // نضع الصورة أولاً مع التنسيق الأساسي الذي وضعناه في CSS
+      questionContent += `<img src="${imageSource}" alt="شكل توضيحي للسؤال" style="max-width: 100%; height: auto; display: block; margin: 15px auto; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">`;
   }
+  questionContent += q.text; 
+  
+  // نستخدم innerHTML لضمان عرض وسم <img>
+  questionTextElement.innerHTML = questionContent; 
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
