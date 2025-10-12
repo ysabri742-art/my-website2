@@ -125,22 +125,24 @@ let allQuestions = [
 
     
     // الهندسة
-    { id: 90, text: "أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة", imageURL: "images/Picture1.jpg" },
-    { id: 91, text: "في الشكل المجاور أوجد طول أ ج: .", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2,imageURL: "images/Picture2.jpg" },
-    { id: 92, text: "في شكل رباعي دائري، أوجد قيمة س .", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1 ,imageURL: "images/Picture3.png"},
-    { id: 93, text: "أحسب محيط الشكل التالي .", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2,imageURL: "images/Picture4.png" },
-    { id: 94, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل .", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 1,imageURL: "images/Picture5.png"},
-    { id: 95, text: "كم عدد المثلثات في الشكل .", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 ,imageURL: "images/Picture6.jpg"},
-    { id: 96, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 ,imageURL: "images/Picture7.png"},
-    { id: 97, text: "أوجد مثلي س + ص .", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3,imageURL: "images/Picture8.png" },
-    { id: 98, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 2,imageURL: "images/Picture9.png" },
-    { id: 99, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 0 ,imageURL: "images/Picture10.png"},
-    { id: 100, text: "ما متوسط الإيرادات للأعوام الأربعة؟ .", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 ,imageURL: "images/Picture11.png"},
+    { id: 90, text: "أوجد س + ص (زاويتان خارجيتان).", options: ["230 درجة", "130 درجة", "270 درجة", "115 درجة"], answer: null, marked: false, correct: 0, header: "الهندسة",     imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture1.jpg"
+ },
+    { id: 91, text: "في الشكل المجاور أوجد طول أ ج: .", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture2.jpg" },
+    { id: 92, text: "في شكل رباعي دائري، أوجد قيمة س .", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture3.png"},
+    { id: 93, text: "أحسب محيط الشكل التالي .", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2,  imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture4.png"  
+},
+    { id: 94, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل .", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 1,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture5.png"},
+    { id: 95, text: "كم عدد المثلثات في الشكل .", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture6.jpg"},
+    { id: 96, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture7.png"},
+    { id: 97, text: "أوجد مثلي س + ص .", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture8.png" },
+    { id: 98, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 2,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture9.png" },
+    { id: 99, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 0 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture10.png"},
+    { id: 100, text: "ما متوسط الإيرادات للأعوام الأربعة؟ .", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture11.png"},
     
     // أسئلة المقارنة (تغطي باقي الأسئلة حتى 120)
-    { id: 101, text: "كم عدد المستطيلات في الشكل .", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة",imageURL: "images/Picture12.jpg" },
+    { id: 101, text: "كم عدد المستطيلات في الشكل .", options: ["6", "15", "18", "24"], answer: null, marked: false, correct: 1, header: "أسئلة المقارنة",imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture12.jpg" },
     { id: 102, text: "قارن بين: القيمة الأولى: 9 – 0.0044، القيمة الثانية: 9 – 0.00044", options: ["الأولى أكبر", "الثانية أكبر", "متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 2 },
-    { id: 103, text: "قارن بين: القيمة الأولى: كمية العصير التي تملأ الإسطوانة القيمة الثانية: 750 مليلتر", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 ,imageURL: "images/Picture13.png"},
+    { id: 103, text: "قارن بين: القيمة الأولى: كمية العصير التي تملأ الإسطوانة القيمة الثانية: 750 مليلتر", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture13.png"},
 
 { id: 104, text: "قارن بين: القيمة الأولى: 40% من 60 القيمة الثانية: 60 من 40%", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1},
 
@@ -148,17 +150,17 @@ let allQuestions = [
 
 { id: 106, text: "قارن بين: القيمة الأولى: 35 القيمة الثانية: 28", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 },
 
-{ id: 107, text: "قارن بين: القيمة الأولى: مساحة المربع  القيمة الثانية: مساحة المثلث ", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3,imageURL: "images/Picture15.png" },
+{ id: 107, text: "قارن بين: القيمة الأولى: مساحة المربع  القيمة الثانية: مساحة المثلث ", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture15.png" },
 
 { id: 108, text: "إذا كان س³ = 48 فقارن بين: القيمة الأولى: س² القيمة الثانية: 15", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct:2 },
 
 { id: 109, text: "إذا كانت 0 > ص > س فقارن بين: القيمة الأولى: س¹⁴³⁶ القيمة الثانية: ص²⁰¹⁵", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 },
 
-{ id: 110, text: "قارن بين: القيمة الأولى: مساحة الجزء (س) في الشكل القيمة الثانية: مساحة الجزء (ص)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 ,imageURL: "images/Picture16.png"},
+{ id: 110, text: "قارن بين: القيمة الأولى: مساحة الجزء (س) في الشكل القيمة الثانية: مساحة الجزء (ص)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture16.png"},
 
-{ id: 111, text: "إذا كانت (م) نقطة مركز للمستطيل أ ب ج د فقارن بين: القيمة الأولى: عدد المستقيمات الممكن رسمها بين الرؤوس الأربعة القيمة الثانية: 6", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 ,imageURL: "images/Picture17.png"},
+{ id: 111, text: "إذا كانت (م) نقطة مركز للمستطيل أ ب ج د فقارن بين: القيمة الأولى: عدد المستقيمات الممكن رسمها بين الرؤوس الأربعة القيمة الثانية: 6", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture17.png"},
 
-{ id: 112, text: "إذا كانت المسافة من س إلى ص = 12، والمسافات بينهم جميعًا متساوية فقارن بين: القيمة الأولى: 3 سم القيمة الثانية: ع ل (المسافة بين نقطتين متجاورتين)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 2,imageURL: "images/Picture18.png" },
+{ id: 112, text: "إذا كانت المسافة من س إلى ص = 12، والمسافات بينهم جميعًا متساوية فقارن بين: القيمة الأولى: 3 سم القيمة الثانية: ع ل (المسافة بين نقطتين متجاورتين)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 2,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture18.png" },
 
 { id: 113, text: "قارن بين: القيمة الأولى: محيط سداسي منتظم قطره = 8 القيمة الثانية: محيط دائرة قطرها = 8", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 2 },
 
@@ -166,7 +168,7 @@ let allQuestions = [
 
 { id: 115, text: "قارن بين: القيمة الأولى: عمر أحمد بالهجري القيمة الثانية: عمر أحمد بالميلادي", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 0 },
 
-{ id: 116, text: "الشكل التالي عبارة عن مستطيل فقارن بين: القيمة الأولى: نسبة الجزء المظلل إلى الشكل الكامل القيمة الثانية: 3 : 1", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1,imageURL: "images/Picture19.png" },
+{ id: 116, text: "الشكل التالي عبارة عن مستطيل فقارن بين: القيمة الأولى: نسبة الجزء المظلل إلى الشكل الكامل القيمة الثانية: 3 : 1", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture19.png" },
 
 { id: 117, text: "قارن بين: القيمة الأولى: (7 + 6) ÷ (6 + 7) القيمة الثانية: (7 + 7) ÷ (7 + 8)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 },
 
