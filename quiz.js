@@ -228,6 +228,17 @@ function updateQuestion() {
 
   // 6. عرض نص السؤال والخيارات كـ innerHTML
   document.getElementById("question-text").textContent = q.text;
+     if (q.imageURL || q.image) {
+    const img = document.createElement("img");
+    img.src = q.imageURL || q.image; // دعم أي من الخاصيتين
+    img.alt = "صورة السؤال";
+    img.style.maxWidth = "100%";
+    img.style.display = "block";
+    img.style.margin = "15px auto";
+    img.style.borderRadius = "12px";
+    img.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
+    questionTextElement.appendChild(img);
+  }
 
   let answersHTML = "";
   q.options.forEach((opt, i) => {
