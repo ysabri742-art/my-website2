@@ -92,7 +92,7 @@ let allQuestions = [
    
     { id: 64, text: "أوجد قيمة المقدار: (1/3) + (1/2 * 1/3) – (1/6) - (1/3)", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, header: "الجبر والحساب" },
     { id: 65, text: "بطاقات مرقمة من 1 إلى 99، فما احتمال سحب بطاقة مجموع رقميها أكبر من 11؟", options: ["10/99", "11/99", "27/99", "28/99"], answer: null, marked: false, correct: 3 },
-    { id: 66, text: "999^2 – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 2 },
+    { id: 66, text: "999^2 – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 1 },
     { id: 67, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1 },
     { id: 68, text: "ما قيمة المقدار تقريباً: 10 / (جذر 30 * جذر 10)", options: ["1/جذر3", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0 },
     { id: 69, text: "ما نصف العدد 2^50", options: ["2^62", "2^52", "2^49", "2^51"], answer: null, marked: false, correct: 2 },
@@ -129,7 +129,7 @@ let allQuestions = [
     { id: 91, text: "في الشكل المجاور أوجد طول أ ج: .", options: ["7", "8", "9", "10"], answer: null, marked: false, correct: 2 },
     { id: 92, text: "في شكل رباعي دائري، أوجد قيمة س .", options: ["80 درجة", "100 درجة", "110 درجة", "120 درجة"], answer: null, marked: false, correct: 1 },
     { id: 93, text: "أحسب محيط الشكل التالي .", options: ["18", "20", "22", "24"], answer: null, marked: false, correct: 2 },
-    { id: 94, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل .", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 2 },
+    { id: 94, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل .", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 1},
     { id: 95, text: "كم عدد المثلثات في الشكل .", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 },
     { id: 96, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 },
     { id: 97, text: "أوجد مثلي س + ص .", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3 },
