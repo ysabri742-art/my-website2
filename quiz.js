@@ -146,7 +146,7 @@ let allQuestions = [
 
 { id: 104, text: "قارن بين: القيمة الأولى: 40% من 60 القيمة الثانية: 60 من 40%", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 1},
 
-{ id: 105, text: "قارن بين: القيمة الأولى: مساحة المستطيل (طول = 6، عرض = 3) القيمة الثانية: مساحة المربع (ضلع = 5)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer:null, marked: false, correct: 2,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture14.jpg"  },
+{ id: 105, text: "قارن بين: القيمة الأولى: مساحة المستطيل (طول = 6، عرض = 3) القيمة الثانية: مساحة المربع (ضلع = 5)", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer:null, marked: false, correct: 2 },
 
 { id: 106, text: "قارن بين: القيمة الأولى: 35 القيمة الثانية: 28", options: ["القيمة الأولى أكبر من القيمة الثانية", "القيمة الثانية أكبر من القيمة الأولى", "القيمتان متساويتان", "المعطيات غير كافية"], answer: null, marked: false, correct: 3 },
 
@@ -280,16 +280,6 @@ function nextQuestion() {
         reviewSection(); // ننتقل لشاشة المراجعة مباشرة
     }
 }
-function checkUnanswered() {
-    let unansweredCount = 0;
-    // نمر على كل سؤال في القسم الحالي
-    questions.forEach(q => {
-        if (q.answer === null) {
-            unansweredCount++;
-        }
-    });
-    return unansweredCount;
-}
 
 function prevQuestion() {
   saveAnswer();
@@ -305,27 +295,16 @@ function markQuestion() {
 }
 
 function reviewSection() {
-    saveAnswer();
-    // حفظ حالة القسم قبل الانتقال للمراجعة
-    localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
+  saveAnswer();
+  // حفظ حالة القسم قبل الانتقال للمراجعة
+  localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
 
-    let html = `<h2>مراجعة القسم ${currentSection}</h2><ul>`;
-    questions.forEach((q, i) => {
-        let status = q.answer !== null ? "✅ مجاب" : "❌ غير مجاب";
-        if (q.marked) status += " ⭐ مرجعي";
-        html += `<li>سؤال ${i + 1}: ${status} <button onclick="window.location.href='quiz.html?section=${currentSection}&returnTo=${i}'">🔁</button></li>`;
-    });
-    
-    // تحديد نص زر الإنهاء بناءً على القسم
-    const endButtonText = (currentSection < totalSections) ? '✅ تسليم القسم والانتقال' : '🏁 إنهاء الاختبار';
-
-    html += `</ul>
-        <button onclick="window.location.href='quiz.html?section=${currentSection}&returnTo=0'">🔙 العودة لأول سؤال</button>
-        <button onclick="endSection()">${endButtonText}</button>`;
-        
-    // استبدال محتوى الجسم بشاشة المراجعة
-    document.body.innerHTML = html;
-}
+  let html = `<h2>مراجعة القسم ${currentSection}</h2><ul>`;
+  questions.forEach((q, i) => {
+    let status = q.answer !== null ? "✅ مجاب" : "❌ غير مجاب";
+    if (q.marked) status += " ⭐ مرجعي";
+    html += `<li>سؤال ${i + 1}: ${status} <button onclick="window.location.href='quiz.html?section=${currentSection}&returnTo=${i}'">🔁</button></li>`;
+  });
   
   // تحديد نص زر الإنهاء بناءً على القسم
   const endButtonText = (currentSection < totalSections) ? '✅ تسليم القسم والانتقال' : '🏁 إنهاء الاختبار';
@@ -354,25 +333,9 @@ function chooseQuestion() {
 }
 
 function endSection() {
-    saveAnswer(); // لضمان حفظ آخر إجابة
-
-    // 1. التحقق من الأسئلة غير المُجابة
-    const unanswered = checkUnanswered();
-
-    if (unanswered > 0) {
-        // إذا وُجدت أسئلة غير مجابة (المنع الإجباري)
-        alert(
-            `⚠️ لا يمكن تسليم القسم الآن!\nيجب عليك الإجابة على جميع الأسئلة. لديك ${unanswered} سؤال(أسئلة) لم يتم الإجابة عليها. سيتم نقلك إلى شاشة المراجعة.`
-        );
-        
-        // نقل المستخدم إجباريًا إلى شاشة المراجعة لحل الأخطاء
-        reviewSection();
-        return; // نوقف تنفيذ الدالة هنا
-    }
+    saveAnswer(); // لضمان حفظ آخر إجابة قبل التسليم
     
-    // 2. إذا لم يكن هناك أسئلة غير مجابة (أو تجاوزنا هذه الخطوة من شاشة المراجعة)
-    
-    // حفظ أسئلة القسم الحالي
+    // حفظ أسئلة القسم الحالي (للتأكيد، رغم أن saveAnswer يفعل ذلك)
     localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
 
     if (currentSection < totalSections) {
