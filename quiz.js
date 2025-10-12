@@ -382,7 +382,7 @@ function finishExam() {
   localStorage.setItem("quizResults", JSON.stringify({
     score: finalScore,
     correct: totalCorrectAnswers,
-    total: 120, // **تم تثبيت القيمة هنا لتجنب أي خطأ في الحساب**
+    total: totalQuestionsCount, // **تم تثبيت القيمة هنا لتجنب أي خطأ في الحساب**
     errors: errors,
     totalSections: totalSections
   }));
