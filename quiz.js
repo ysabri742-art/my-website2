@@ -261,19 +261,24 @@ function updateQuestion() {
 }
 
 function saveAnswer() {
-  const selected = document.querySelector("input[name='answer']:checked");
-  questions[currentIndex].answer = selected ? parseInt(selected.value) : null;
+    const selected = document.querySelector("input[name='answer']:checked");
+    // 1. تحديث الإجابة في مصفوفة الجلسة
+    questions[currentIndex].answer = selected ? parseInt(selected.value) : null;
+    
+    // 2. **الحفظ الإجباري (الإصلاح)**: حفظ المصفوفة المُحدثة في الذاكرة المحلية
+    localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions)); 
 }
 
 function nextQuestion() {
-  saveAnswer();
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    updateQuestion();
-  } else if (currentIndex === questions.length - 1) {
-    // إذا وصل لآخر سؤال في القسم (السؤال 24)، ينتقل لشاشة المراجعة مباشرة
-    reviewSection();
-  }
+    saveAnswer(); // تمكين الحفظ
+    
+    if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        updateQuestion();
+    } else {
+        // إذا كان السؤال الأخير في القسم (المؤشر questions.length - 1)
+        reviewSection(); // ننتقل لشاشة المراجعة مباشرة
+    }
 }
 
 function prevQuestion() {
@@ -328,19 +333,19 @@ function chooseQuestion() {
 }
 
 function endSection() {
-  saveAnswer();
-  
-  // حفظ أسئلة القسم الحالي
-  localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
+    saveAnswer(); // لضمان حفظ آخر إجابة قبل التسليم
+    
+    // حفظ أسئلة القسم الحالي (للتأكيد، رغم أن saveAnswer يفعل ذلك)
+    localStorage.setItem(`section_questions_${currentSection}`, JSON.stringify(questions));
 
-  if (currentSection < totalSections) {
-    // الانتقال للقسم التالي
-    localStorage.setItem("section", currentSection + 1);
-    window.location.href = "quiz.html";
-  } else {
-    // إنهاء الامتحان بالكامل (القسم الأخير)
-    finishExam();
-  }
+    if (currentSection < totalSections) {
+        // الانتقال للقسم التالي
+        localStorage.setItem("section", currentSection + 1);
+        window.location.href = "quiz.html";
+    } else {
+        // إنهاء الامتحان بالكامل (القسم الأخير)
+        finishExam();
+    }
 }
 
 function finishExam() {
