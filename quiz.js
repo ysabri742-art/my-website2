@@ -92,20 +92,20 @@ let allQuestions = [
    
     { id: 64, text: "أوجد قيمة المقدار: (1/3) + (1/2 * 1/3) – (1/6) - (1/3)", options: ["1/6", "0", "2", "3"], answer: null, marked: false, correct: 1, header: "الجبر والحساب" },
     { id: 65, text: "بطاقات مرقمة من 1 إلى 99، فما احتمال سحب بطاقة مجموع رقميها أكبر من 11؟", options: ["10/99", "11/99", "27/99", "28/99"], answer: null, marked: false, correct: 3 },
-    { id: 66, text: "999^2 – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 1 },
+    { id: 66, text: "999² – 1 = .....", options: ["99800", "998000", "999999", "980000"], answer: null, marked: false, correct: 1 },
     { id: 67, text: "كم مرة يتكرر الرقم ٩ من ١ الى ١٠٠؟", options: ["19", "20", "21", "22"], answer: null, marked: false, correct: 1 },
     { id: 68, text: "ما قيمة المقدار تقريباً: 10 / (جذر 30 * جذر 10)", options: ["1/جذر3", "1/3", "1/10", "1/30"], answer: null, marked: false, correct: 0 },
-    { id: 69, text: "ما نصف العدد 2^50", options: ["2^62", "2^52", "2^49", "2^51"], answer: null, marked: false, correct: 2 },
-    { id: 70, text: "إذا كان 2^ن + 2^ن + 2^ن + 2^ن = 8^2 فما قيمة ن؟", options: ["2", "8", "4", "6"], answer: null, marked: false, correct: 2 },
+    { id: 69, text: "ما نصف العدد 2⁵⁰", options: ["2⁶²", "2⁵²", "2⁴⁹", "2⁵¹"], answer: null, marked: false, correct: 2 },
+    { id: 70, text: "إذا كان 2ⁿ + 2ⁿ + 2ⁿ + 2ⁿ = 2⁸ فما قيمة ن؟", options: ["2", "8", "4", "6"], answer: null, marked: false, correct: 3 },
     { id: 71, text: "أوجد قيمة المقدار: (18 * 32) / (16 * 9)", options: ["1", "2", "4", "6"], answer: null, marked: false, correct: 2 },
     { id: 72, text: "شخص عمره 4.15 سنة، فعمره تقريبًا 4 سنوات و .....", options: ["شهر و28 يوم", "ثلاثة أشهر", "15 يوم", "شهر و 24 يوم"], answer: null, marked: false, correct: 3 },
 
     // القسم 5 (96-119) - 24 سؤال
     { id: 73, text: "أوجد قيمة: 4% من 100", options: ["4", "3.96", "3.92", "3.84"], answer: null, marked: false, correct: 0 },
-    { id: 74, text: "أوجد قيمة: (4/10) / (9/10)", options: ["4/10", "5/10", "4/9", "5/9"], answer: null, marked: false, correct: 2 },
-    { id: 75, text: "ما قيمة (51)^2 – (49)^2", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, header: "الجبر والحساب - تكرار" },
+    { id: 74, text: "أوجد قيمة: (⁴⁄₁₀) ÷ (⁹⁄₁₀)", options: ["⁴⁄₁₀", "⁵⁄₁₀", "⁴⁄₉", "⁵⁄₉"], answer: null, marked: false, correct: 2 },
+    { id: 75, text: "ما قيمة 51² – 49²", options: ["200", "400", "600", "49"], answer: null, marked: false, correct: 0, header: "الجبر والحساب - تكرار" },
     { id: 76, text: "إذا كان (أ - ب = ٥)، (ب - ج = ٣)، (ج + د = ١)، أوجد أ + د", options: ["1", "8", "9", "4"], answer: null, marked: false, correct: 2 },
-    { id: 77, text: "أوجد قيمة المقدار: (2^7 + 2^7) / (2^7 + 2^7 + 2^7 + 2^7)", options: ["1/4", "1/2", "1/8", "1/16"], answer: null, marked: false, correct: 1 },
+    { id: 77, text: "أوجد قيمة المقدار: (2⁷ + 2⁷) / (2⁷ + 2⁷ + 2⁷ + 2⁷)", options: ["1/4", "1/2", "1/8", "1/16"], answer: null, marked: false, correct: 1 },
     
     // المسائل المقالية
     { id: 78, text: "نريد توزيع 64 حاسب و 48 طابعة على عدد من الغرف. فما أكبر عدد من هذه الغرف؟", options: ["8 غرف", "12 غرفة", "16 غرفة", "24 غرفة"], answer: null, marked: false, correct: 2, header: "الأسئلة المقالية" },
@@ -133,10 +133,10 @@ let allQuestions = [
 },
     { id: 94, text: "إذا كان طول ضلع المربع = 20 سم ورؤوسه مركز لأربع دوائر، أوجد مساحة المظلل .", options: ["25 ط", "50 ط", "100 ط", "125 ط"], answer: null, marked: false, correct: 1,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture5.png"},
     { id: 95, text: "كم عدد المثلثات في الشكل .", options: ["8", "10", "12", "16"], answer: null, marked: false, correct: 3 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture6.jpg"},
-    { id: 96, text: "أوجد نسبة الزيادة بين عامي 1433هـ (150) إلى عام 1430هـ (125).", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture7.png"},
+    { id: 96, text: "أوجد نسبة الزيادة بين عامي 1433هـ  إلى عام 1430هـ .", options: ["10%", "15%", "20%", "25%"], answer: null, marked: false, correct: 2 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture7.png"},
     { id: 97, text: "أوجد مثلي س + ص .", options: ["60", "90", "120", "180"], answer: null, marked: false, correct: 3,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture8.png" },
     { id: 98, text: "ما قياس الزاوية س؟", options: ["60 درجة", "120 درجة", "140 درجة", "100 درجة"], answer: null, marked: false, correct: 2,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture9.png" },
-    { id: 99, text: "ما نوع المثلث؟ (أضلاعه 4س، 3س، 2س).", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 0 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture10.png"},
+    { id: 99, text: "ما نوع المثلث؟ .", options: ["مثلث قائم", "مثلث حاد", "مثلث متطابق الأضلاع", "مثلث منفرج"], answer: null, marked: false, correct: 0 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture10.png"},
     { id: 100, text: "ما متوسط الإيرادات للأعوام الأربعة؟ .", options: ["11.5", "12.5", "40", "46"], answer: null, marked: false, correct: 0 ,imageURL: "https://raw.githubusercontent.com/ysabri742-art/my-website2/main/images/Picture11.png"},
     
     // أسئلة المقارنة (تغطي باقي الأسئلة حتى 120)
